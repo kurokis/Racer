@@ -12,7 +12,18 @@ setup(
         ('share/ament_index/resource_index/packages',
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
-        (os.path.join('share', package_name), glob('launch/*.launch.py'))
+        
+        # Path to the launch file
+        (os.path.join('share', package_name), glob('launch/*.launch.py')),
+        
+        # Path to the world file
+        (os.path.join('share', package_name,'worlds/'), glob('./worlds/*')),
+        
+        # Path to the prius sdf file
+        (os.path.join('share', package_name,'models/prius_hybrid/'), glob('./models/prius_hybrid/*.sdf')),
+
+        # Path to the world file
+        (os.path.join('share', package_name,'models/'), glob('./worlds/*')),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
