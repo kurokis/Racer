@@ -50,21 +50,45 @@ class KeyboardController(Node):
     def timer_callback(self):
         key = self.sub.read()
         if key is not None:
-            if key=="w":
-                self.throttle += 10
-                self.throttle = min(self.throttle, 100)
-            elif key=="s":
-            	self.throttle -= 10
-            	self.throttle = max(self.throttle, -100)
-            elif key=="a":
-                self.steer += 10
-                self.steer = min(self.steer, 100)
-            elif key=="d":
-                self.steer -= 10
-                self.steer = max(self.steer, -100)
+            # keys:
+            # q w e
+            # a s d
+            # z x c
+            #
+            # w: positive throttle
+            # a: steer left
+            # q: positive throttle + steer left
+            # s: stop
+            # etc.
+            
+            MAX_ABS_THROTTLE = 100
+            MAX_ABS_STEER = 100
+            DELTA_THROTTLE = 10
+            DELTA_STEER = 10
+            
+            # update throttle
+            if (key=="w" or key=="q" or key=="e"): # forward
+                self.throttle += DELTA_THROTTLE
+            elif (key=="x" or key=="z" or key=="c"): # backward
+            	self.throttle -= DELTA_THROTTLE
+            
+            # update steer
+            if (key=="a" or key=="q" or key=="z"): # left
+                self.steer += DELTA_STEER
+            elif (key=="d" or key=="e" or key=="c"): # right
+                self.steer -= DELTA_STEER
+            
+            # other key input
+            if key=="s":
+            	self.throttle = 0.0
+            	self.steer = 0.0
+                
+            # saturate throttle and steer
+            self.throttle = max(min(self.throttle, MAX_ABS_THROTTLE),-MAX_ABS_THROTTLE)
+            self.steer = max(min(self.steer, MAX_ABS_STEER),-MAX_ABS_STEER)
         else:
             self.throttle *= 0.8
-            #self.steer *= 0.8
+            self.steer *= 0.8
         
         data = [int(self.throttle), int(self.steer)]
         msg = Int8MultiArray(data=data)
