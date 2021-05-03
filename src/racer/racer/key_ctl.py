@@ -45,6 +45,7 @@ class KeyboardController(Node):
         self.timer = self.create_timer(timer_period, self.timer_callback)
         
         self.throttle = 0.0
+        self.steer = 0.0
         
     def timer_callback(self):
         key = self.sub.read()
@@ -55,10 +56,17 @@ class KeyboardController(Node):
             elif key=="s":
             	self.throttle -= 10
             	self.throttle = max(self.throttle, -100)
+            elif key=="a":
+                self.steer += 10
+                self.steer = min(self.steer, 100)
+            elif key=="d":
+                self.steer -= 10
+                self.steer = max(self.steer, -100)
         else:
             self.throttle *= 0.8
+            #self.steer *= 0.8
         
-        data = [int(self.throttle), 0]
+        data = [int(self.throttle), int(self.steer)]
         msg = Int8MultiArray(data=data)
         self.pub.publish(msg)
 
