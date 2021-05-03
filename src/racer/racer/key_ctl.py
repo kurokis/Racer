@@ -1,6 +1,6 @@
 import rclpy
 from rclpy.node import Node
-from std_msgs.msg import String, Int8
+from std_msgs.msg import String, Int8, Int8MultiArray
 
 class KeyListener(Node):
     def __init__(self):
@@ -29,7 +29,7 @@ class KeyListener(Node):
 class CommandPublisher(Node):
     def __init__(self):
         super().__init__('command_publisher')
-        self.pub = self.create_publisher(Int8, 'topic', 10)
+        self.pub = self.create_publisher(Int8MultiArray, 'throttle_steer', 10)
         
     def publish(self, msg):
         self.pub.publish(msg)
@@ -58,8 +58,8 @@ class KeyboardController(Node):
         else:
             self.throttle *= 0.8
         
-        msg = Int8()
-        msg.data = int(self.throttle)
+        data = [int(self.throttle), 0]
+        msg = Int8MultiArray(data=data)
         self.pub.publish(msg)
 
 def main(args=None):
