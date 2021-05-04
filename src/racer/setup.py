@@ -20,7 +20,9 @@ setup(
         (os.path.join('share', package_name,'worlds/'), glob('./worlds/*')),
         
         # Path to the prius sdf file
-        (os.path.join('share', package_name,'models/prius_hybrid/'), glob('./models/prius_hybrid/*.sdf')),
+        (os.path.join('share', package_name,'models/prius/'), glob('./models/prius/*.*')),
+        (os.path.join('share', package_name,'models/prius/meshes/'), glob('./models/prius/meshes/*.*')),
+        (os.path.join('share', package_name,'models/prius/materials/textures'), glob('./models/prius/materials/textures/*.*')),
 
         # Path to the world file
         (os.path.join('share', package_name,'models/'), glob('./worlds/*')),

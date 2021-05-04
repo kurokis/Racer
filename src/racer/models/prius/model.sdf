@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <sdf version="1.6">
-  <model name="prius_hybrid">
+  <model name="prius">
     <pose>0 0 0.03 0 0 0</pose>
     <link name="chassis">
       <inertial>
