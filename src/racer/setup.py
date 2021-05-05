@@ -23,9 +23,7 @@ setup(
         (os.path.join('share', package_name,'models/prius/'), glob('./models/prius/*.*')),
         (os.path.join('share', package_name,'models/prius/meshes/'), glob('./models/prius/meshes/*.*')),
         (os.path.join('share', package_name,'models/prius/materials/textures'), glob('./models/prius/materials/textures/*.*')),
-
-        # Path to the world file
-        (os.path.join('share', package_name,'models/'), glob('./worlds/*')),
+        
     ],
     install_requires=['setuptools'],
     zip_safe=True,
