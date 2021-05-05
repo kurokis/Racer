@@ -42,7 +42,7 @@
         </camera>
         
         <!-- Use camera, not camera_triggered -->
-        <plugin name="plugin_name" filename="libgazebo_ros_camera.so">
+        <plugin name="camera_plugin" filename="libgazebo_ros_camera.so">
           <!-- Change namespace, camera name and topics so:
                * Images are published to: /cam/camera/image_raw
                * Camera info is published to: /cam/camera/camera_info 
