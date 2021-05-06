@@ -79,7 +79,7 @@
       <visual name="chassis_visual">
         <geometry>
           <mesh>
-            <uri>model://prius_hybrid/meshes/Hybrid.obj</uri>
+            <uri>model://prius/meshes/Hybrid.obj</uri>
             <scale>0.001 0.001 0.001</scale>
             <submesh>
               <name>Hybrid</name>
@@ -92,7 +92,7 @@
       <visual name="interior_visual">
         <geometry>
           <mesh>
-            <uri>model://prius_hybrid/meshes/Hybrid.obj</uri>
+            <uri>model://prius/meshes/Hybrid.obj</uri>
             <scale>0.001 0.001 0.001</scale>
             <submesh>
               <name>Hybrid_Interior</name>
@@ -105,7 +105,7 @@
       <visual name="windows_visual">
         <geometry>
           <mesh>
-            <uri>model://prius_hybrid/meshes/Hybrid.obj</uri>
+            <uri>model://prius/meshes/Hybrid.obj</uri>
             <scale>0.001 0.001 0.001</scale>
             <submesh>
               <name>Hybrid_Windows</name>
@@ -229,7 +229,7 @@
         <pose>0 0 0 1.302101 0 0</pose>
         <geometry>
           <mesh>
-            <uri>model://prius_hybrid/meshes/Hybrid.obj</uri>
+            <uri>model://prius/meshes/Hybrid.obj</uri>
             <scale>0.001 0.001 0.001</scale>
             <submesh>
               <name>Steering_Wheel</name>
@@ -258,7 +258,7 @@
         <pose>0.004 0.0 0.0 0 0 0</pose>
         <geometry>
           <mesh>
-            <uri>model://prius_hybrid/meshes/Hybrid.obj</uri>
+            <uri>model://prius/meshes/Hybrid.obj</uri>
             <scale>0.001 0.001 0.001</scale>
             <submesh>
               <name>Wheel_Front_Left_</name>
@@ -313,7 +313,7 @@
         <pose>0 0 0.0 0 0 0</pose>
         <geometry>
           <mesh>
-            <uri>model://prius_hybrid/meshes/Hybrid.obj</uri>
+            <uri>model://prius/meshes/Hybrid.obj</uri>
             <scale>0.001 0.001 0.001</scale>
             <submesh>
               <name>Wheel_Front_Right</name>
@@ -369,7 +369,7 @@
         <pose>0.004 0.0 0.0 0 0 0</pose>
         <geometry>
           <mesh>
-            <uri>model://prius_hybrid/meshes/Hybrid.obj</uri>
+            <uri>model://prius/meshes/Hybrid.obj</uri>
             <scale>0.001 0.001 0.001</scale>
             <submesh>
               <name>Wheel_Front_Left_</name>
@@ -423,7 +423,7 @@
         <pose>-0.004 0.0 0.0 0 0 0</pose>
         <geometry>
           <mesh>
-            <uri>model://prius_hybrid/meshes/Hybrid.obj</uri>
+            <uri>model://prius/meshes/Hybrid.obj</uri>
             <scale>0.001 0.001 0.001</scale>
             <submesh>
               <name>Wheel_Front_Right</name>
