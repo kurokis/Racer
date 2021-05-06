@@ -12,7 +12,6 @@ class SimMotor(Node):
             self.listener_callback,
             10)
         self.pub = self.create_publisher(Twist, '/sim/cmd_vel', 10)
-        #self.sub
 
     def listener_callback(self, msg):
         data = msg.data
@@ -20,11 +19,12 @@ class SimMotor(Node):
         steer = data[1]
         
         msg = Twist()
-        msg.linear.x = throttle/100.0*4.0
-        msg.angular.z = steer/100.0
+        # linear.x: target speed in m/s
+        # angular.z: target steering angle in rad
+        msg.linear.x = (throttle/100.0) * 2.0
+        msg.angular.z = (steer/100.0) * (40/57.3)
         
         self.pub.publish(msg)
-        #self.get_logger().info('Received throttle: "%s"' % throttle)
 
 def main(args=None):
     rclpy.init(args=args)
