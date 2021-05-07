@@ -4,9 +4,19 @@
 
 ## 事前準備
 
-Ubuntu 20.04
-
 ros2, colcon, gazeboをインストールしておく。
+
+Jetson Nano JetPack 4.5.1
+
+ - Ubuntu 18.04
+ - ROS2 Eloquent 
+
+[How to install ROS2 Elquent](https://docs.ros.org/en/eloquent/Installation/Linux-Install-Debians.html)
+
+[How to install colcon](https://colcon.readthedocs.io/en/released/user/installation.html)
+
+[How to install Gazebo](http://gazebosim.org/tutorials?tut=ros2_installing&cat=connect_ros)
+
 
 ## パッケージ構成
 

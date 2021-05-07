@@ -7,7 +7,7 @@ def generate_launch_description():
     
     keyboard_node = Node(
         package='racer',
-        executable='keyboard',
+        node_executable='keyboard',
         # open another terminal for keyboard control
         prefix = 'xterm -e',
         output='screen',
@@ -15,12 +15,12 @@ def generate_launch_description():
     
     key_ctl_node = Node(
         package='racer',
-        executable='key_ctl',
+        node_executable='key_ctl',
     )
     
     s_motor_node = Node(
         package='racer',
-        executable='s_motor',
+        node_executable='s_motor',
         output='screen',
     )
     
