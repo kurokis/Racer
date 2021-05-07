@@ -506,7 +506,7 @@
       </camera>
     </gui>
     <include>
-      <uri>model://prius</uri>
+      <uri>model://prius_fullscale</uri>
       <pose>2.4 -2.1 0 0 0 0</pose>
     </include>
   </world>

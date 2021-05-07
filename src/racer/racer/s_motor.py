@@ -21,8 +21,8 @@ class SimMotor(Node):
         msg = Twist()
         # linear.x: target speed in m/s
         # angular.z: target steering angle in rad
-        msg.linear.x = (throttle/100.0) * 2.0
-        msg.angular.z = (steer/100.0) * (40/57.3)
+        msg.linear.x = (throttle/100.0) * 1.0
+        msg.angular.z = (steer/100.0) * (30/57.3)
         
         self.pub.publish(msg)
 
