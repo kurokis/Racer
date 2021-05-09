@@ -13,6 +13,7 @@
   <exec_depend>termios</exec_depend>
   <exec_depend>tty</exec_depend>
   <exec_depend>future</exec_depend>
+  <exec_depend>python-pygame</exec_depend>
   
   <test_depend>ament_copyright</test_depend>
   <test_depend>ament_flake8</test_depend>

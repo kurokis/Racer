@@ -38,6 +38,11 @@ def generate_launch_description():
         node_executable='key_ctl',
     )
     
+    joy_ctl_node = Node(
+        package='racer',
+        node_executable='joy_ctl',
+    )
+
     s_motor_node = Node(
         package='racer',
         node_executable='s_motor',
@@ -47,6 +52,7 @@ def generate_launch_description():
     ld.add_action(gazebo)
     ld.add_action(keyboard_node)
     ld.add_action(key_ctl_node)
+    ld.add_action(joy_ctl_node)
     ld.add_action(s_motor_node)
     
     return ld
