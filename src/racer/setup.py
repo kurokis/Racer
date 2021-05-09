@@ -42,6 +42,7 @@ setup(
             'keyboard = racer.keyboard:main',
             'key_ctl = racer.key_ctl:main',
             's_motor = racer.s_motor:main',
+            'joy_ctl = racer.joy_ctl:main',
         ],
     },
 )
