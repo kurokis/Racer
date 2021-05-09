@@ -41,15 +41,14 @@ class JoystickController(Node):
         # each joystciks' range is [-1,1]
         COEFF=100
 
-        self.throttle=int(self.joy.get_axis(1))*COEFF
-        self.steer=int(self.joy.get_axis(3))*COEFF
+        self.throttle=int(self.joy.get_axis(1)*COEFF*-1)
+        self.steer=int(self.joy.get_axis(3)*COEFF*-1)
         #stop=int((self.joy.get_axis(2)+1)/2)
         pygame.event.pump()
 
     
 
     def timer_callback(self):
-        self.get_logger().info("call_back")
 
         if self.joy.get_init():
             self.read_stick()
