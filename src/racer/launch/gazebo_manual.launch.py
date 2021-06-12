@@ -22,10 +22,18 @@ def generate_launch_description():
     world = os.path.join(pkg_dir, 'worlds', world_file_name)
     launch_file_dir = os.path.join(pkg_dir, 'launch')
  
-    gazebo = ExecuteProcess(
-            cmd=['gazebo', '--verbose', world, '-s', 'libgazebo_ros_init.so', 
+    # gazebo = gzserver (simulation) + gzclient (GUI)
+    #gazebo = ExecuteProcess(
+    #        cmd=['gazebo', '--verbose', world, '-s', 'libgazebo_ros_init.so', 
+    #        '-s', 'libgazebo_ros_factory.so'],
+    #        output='screen')
+
+    # Run only the simulation part of gazebo. Visualization to be done on rviz.
+    gzserver = ExecuteProcess(
+        cmd=['gzserver', '--verbose', world, '-s', 'libgazebo_ros_init.so', 
             '-s', 'libgazebo_ros_factory.so'],
-            output='screen')
+        output='screen',
+    )
     
     keyboard_node = Node(
         package='racer',
@@ -57,7 +65,8 @@ def generate_launch_description():
         output='screen',
     )
     
-    ld.add_action(gazebo)
+    #ld.add_action(gazebo)
+    ld.add_action(gzserver)
     ld.add_action(keyboard_node)
     ld.add_action(key_ctl_node)
     ld.add_action(joy_ctl_node)

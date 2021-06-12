@@ -49,8 +49,10 @@
           -->
           <ros>
             <namespace>cam</namespace>
+            <!--
             <argument>image_raw:=custom_img</argument>
             <argument>camera_info:=custom_info</argument>
+            -->
           </ros>
           <!-- Set camera name. If empty, defaults to sensor name (i.e. "sensor_name") -->
           <camera_name>camera</camera_name>
