@@ -34,6 +34,11 @@ def generate_launch_description():
             '-s', 'libgazebo_ros_factory.so'],
         output='screen',
     )
+
+    # Run rviz with preset configuration
+    rviz = ExecuteProcess(
+        cmd=['rviz2','-d','./src/rviz_config.rviz'],
+    )
     
     keyboard_node = Node(
         package='racer',
@@ -67,6 +72,7 @@ def generate_launch_description():
     
     #ld.add_action(gazebo)
     ld.add_action(gzserver)
+    ld.add_action(rviz)
     ld.add_action(keyboard_node)
     ld.add_action(key_ctl_node)
     ld.add_action(joy_ctl_node)
