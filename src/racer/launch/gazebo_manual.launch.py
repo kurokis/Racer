@@ -21,10 +21,7 @@ def generate_launch_description():
             cmd=['gazebo', '--verbose', world, '-s', 'libgazebo_ros_init.so', 
             '-s', 'libgazebo_ros_factory.so'],
             output='screen')
-    #gazebo = ExecuteProcess(
-    #        cmd=['gazebo', '--verbose', world, '-s', 'libgazebo_ros_factory.so'],
-    #        output='screen')
- 
+    
     keyboard_node = Node(
         package='racer',
         node_executable='keyboard',
@@ -43,6 +40,12 @@ def generate_launch_description():
         node_executable='joy_ctl',
     )
 
+    nn_ctl_node = Node(
+        package='racer',
+        node_executable='nn_ctl',
+        output='screen', # print logger info
+    )
+
     s_motor_node = Node(
         package='racer',
         node_executable='s_motor',
@@ -53,6 +56,7 @@ def generate_launch_description():
     ld.add_action(keyboard_node)
     ld.add_action(key_ctl_node)
     ld.add_action(joy_ctl_node)
+    ld.add_action(nn_ctl_node)
     ld.add_action(s_motor_node)
     
     return ld

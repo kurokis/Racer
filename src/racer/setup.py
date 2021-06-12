@@ -43,6 +43,7 @@ setup(
             'key_ctl = racer.key_ctl:main',
             's_motor = racer.s_motor:main',
             'joy_ctl = racer.joy_ctl:main',
+            'nn_ctl = racer.nn_ctl:main',
         ],
     },
 )
