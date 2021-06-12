@@ -4,8 +4,13 @@ from launch import LaunchDescription
 from launch.actions import ExecuteProcess
 from launch_ros.actions import Node
 from launch.substitutions import LaunchConfiguration
+import subprocess
 
 def generate_launch_description():
+    # Error prevention: automatically stop gzserver (server process for gazebo)
+    # if it is already running
+    subprocess.run(["killall","-9","gzserver"])
+
     ld = LaunchDescription()
     
     use_sim_time = LaunchConfiguration('use_sim_time', default='True')
