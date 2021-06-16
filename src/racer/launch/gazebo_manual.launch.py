@@ -4,8 +4,13 @@ from launch import LaunchDescription
 from launch.actions import ExecuteProcess
 from launch_ros.actions import Node
 from launch.substitutions import LaunchConfiguration
+import subprocess
 
 def generate_launch_description():
+    # Error prevention: automatically stop gzserver (server process for gazebo)
+    # if it is already running
+    subprocess.run(["killall","-9","gzserver"])
+
     ld = LaunchDescription()
     
     use_sim_time = LaunchConfiguration('use_sim_time', default='True')
@@ -17,14 +22,24 @@ def generate_launch_description():
     world = os.path.join(pkg_dir, 'worlds', world_file_name)
     launch_file_dir = os.path.join(pkg_dir, 'launch')
  
-    gazebo = ExecuteProcess(
-            cmd=['gazebo', '--verbose', world, '-s', 'libgazebo_ros_init.so', 
-            '-s', 'libgazebo_ros_factory.so'],
-            output='screen')
+    # gazebo = gzserver (simulation) + gzclient (GUI)
     #gazebo = ExecuteProcess(
-    #        cmd=['gazebo', '--verbose', world, '-s', 'libgazebo_ros_factory.so'],
+    #        cmd=['gazebo', '--verbose', world, '-s', 'libgazebo_ros_init.so', 
+    #        '-s', 'libgazebo_ros_factory.so'],
     #        output='screen')
- 
+
+    # Run only the simulation part of gazebo. Visualization to be done on rviz.
+    gzserver = ExecuteProcess(
+        cmd=['gzserver', '--verbose', world, '-s', 'libgazebo_ros_init.so', 
+            '-s', 'libgazebo_ros_factory.so'],
+        output='screen',
+    )
+
+    # Run rviz with preset configuration
+    rviz = ExecuteProcess(
+        cmd=['rviz2','-d','./src/rviz_config.rviz'],
+    )
+    
     keyboard_node = Node(
         package='racer',
         node_executable='keyboard',
@@ -43,16 +58,25 @@ def generate_launch_description():
         node_executable='joy_ctl',
     )
 
+    nn_ctl_node = Node(
+        package='racer',
+        node_executable='nn_ctl',
+        output='screen', # print logger info
+    )
+
     s_motor_node = Node(
         package='racer',
         node_executable='s_motor',
         output='screen',
     )
     
-    ld.add_action(gazebo)
+    #ld.add_action(gazebo)
+    ld.add_action(gzserver)
+    ld.add_action(rviz)
     ld.add_action(keyboard_node)
     ld.add_action(key_ctl_node)
     ld.add_action(joy_ctl_node)
+    ld.add_action(nn_ctl_node)
     ld.add_action(s_motor_node)
     
     return ld
