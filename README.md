@@ -20,6 +20,8 @@ sudo docker build -t racer-image .
 このDockerfileは[l4t-ml](https://ngc.nvidia.com/catalog/containers/nvidia:l4t-ml)(バージョン l4t-ml:r32.5.0-py3)
 をベースイメージとしており、4GB程度のデータをダウンロードしてくるので初回のビルドには時間がかかる。
 
+※稀にビルド途中にファイル破損することがあるが、その状態で再ビルドしてもキャッシュが悪影響して失敗するため、docker rmiコマンドで破損したイメージを削除して再度トライすること。
+
 ### Step 2'. Docker imageのビルド (PC用)
 
 PCではベースイメージのl4t-mlが動かないので、別のベースイメージを指定する。
@@ -99,7 +101,7 @@ Topics:
 リポジトリのルート(README.mdがある場所)に移動
 
 ```bash
-cd ros_ws
+cd Racer
 ```
 
 colconでracerパッケージをビルド

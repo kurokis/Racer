@@ -35,7 +35,7 @@ RUN apt install -y python3-colcon-common-extensions
 
 # Gazebo
 # [How to install Gazebo](http://gazebosim.org/tutorials?tut=ros2_installing&cat=connect_ros)
-#RUN apt install -y ros-eloquent-gazebo-ros-pkgs
+RUN apt install -y ros-eloquent-gazebo-ros-pkgs
 
 # Jetson Nanoでpygameをインストールするのに必要なライブラリ郡
 RUN apt update
