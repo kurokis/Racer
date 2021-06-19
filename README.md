@@ -4,7 +4,7 @@
 
 ## 環境構築
 
-### Docker imageのビルド手順
+### Docker imageのビルド手順(Jetson用)
 
 JetPackには最初からDockerがインストールされているので自らdockerをインストールする必要はない。
 このリポジトリのルートに移動し、下記コマンドでビルドする。
@@ -15,6 +15,17 @@ sudo docker build -t racer-image .
 
 このDockerfileは[l4t-ml](https://ngc.nvidia.com/catalog/containers/nvidia:l4t-ml)(バージョン l4t-ml:r32.5.0-py3)
 をベースイメージとしており、4GB程度のデータをダウンロードしてくるので初回のビルドには時間がかかる。
+
+### Docker imageのビルド手順(PC用)
+
+PCではベースイメージのl4t-mlが動かないので、別のベースイメージを指定する。
+指定にはBASE_IMAGE引数を使う。
+
+```sh
+sudo docker build -t racer-image --build-arg BASE_IMAGE=python:latest .
+```
+
+### Docker imageの実行手順
 
 ビルドが正常に完了したら、以下のコマンドでインタラクティブセッションを実行する。
 
@@ -104,8 +115,6 @@ launchファイルを使って必要なノードやgazeboをまとめて起動�
 ```bash
 ros2 launch racer gazebo_manual.launch.py
 ```
-
-
 
 
 ## サンプル画像
