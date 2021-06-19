@@ -2,6 +2,32 @@
 
 自動運転ミニカー
 
+## 環境構築
+
+### Docker imageのビルド手順
+
+JetPackには最初からDockerがインストールされているので自らdockerをインストールする必要はない。
+このリポジトリのルートに移動し、下記コマンドでビルドする。
+
+```sh
+sudo docker build -t racer-image .
+```
+
+このDockerfileは[l4t-ml](https://ngc.nvidia.com/catalog/containers/nvidia:l4t-ml)(バージョン l4t-ml:r32.5.0-py3)
+をベースイメージとしており、4GB程度のデータをダウンロードしてくるので初回のビルドには時間がかかる。
+
+ビルドが正常に完了したら、以下のコマンドでインタラクティブセッションを実行する。
+
+```sh
+sudo docker run -it --rm --runtime nvidia --network host racer-image
+```
+
+インタラクティブセッションは以下のコマンドで終了できる。
+
+```
+exit
+```
+
 ## 事前準備
 
 ros2, colcon, gazeboをインストールしておく。
@@ -78,6 +104,9 @@ launchファイルを使って必要なノードやgazeboをまとめて起動�
 ```bash
 ros2 launch racer gazebo_manual.launch.py
 ```
+
+
+
 
 ## サンプル画像
 
