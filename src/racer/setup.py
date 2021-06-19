@@ -24,6 +24,11 @@ setup(
         (os.path.join('share', package_name,'models/prius/meshes/'), glob('./models/prius/meshes/*.*')),
         (os.path.join('share', package_name,'models/prius/materials/textures'), glob('./models/prius/materials/textures/*.*')),
         
+        # Path to the prius sdf file
+        (os.path.join('share', package_name,'models/prius_fullscale/'), glob('./models/prius_fullscale/*.*')),
+        (os.path.join('share', package_name,'models/prius_fullscale/meshes/'), glob('./models/prius_fullscale/meshes/*.*')),
+        (os.path.join('share', package_name,'models/prius_fullscale/materials/textures'), glob('./models/prius_fullscale/materials/textures/*.*')),
+        
     ],
     install_requires=['setuptools'],
     zip_safe=True,
@@ -37,6 +42,8 @@ setup(
             'keyboard = racer.keyboard:main',
             'key_ctl = racer.key_ctl:main',
             's_motor = racer.s_motor:main',
+            'joy_ctl = racer.joy_ctl:main',
+            'nn_ctl = racer.nn_ctl:main',
         ],
     },
 )

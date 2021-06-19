@@ -4,9 +4,19 @@
 
 ## 事前準備
 
-Ubuntu 20.04
-
 ros2, colcon, gazeboをインストールしておく。
+
+Jetson Nano JetPack 4.5.1
+
+ - Ubuntu 18.04
+ - ROS2 Eloquent 
+
+[How to install ROS2 Elquent](https://docs.ros.org/en/eloquent/Installation/Linux-Install-Debians.html)
+
+[How to install colcon](https://colcon.readthedocs.io/en/released/user/installation.html)
+
+[How to install Gazebo](http://gazebosim.org/tutorials?tut=ros2_installing&cat=connect_ros)
+
 
 ## パッケージ構成
 
@@ -26,18 +36,22 @@ src/
 
 ## ソフト構成
 
+![](docs/rqt_graph.png)
+
 Nodes:
 * keyboard: キーボード入力の受付
 * key_ctl: キーボード入力をスロットルとステアのコマンドに変換
+* joy_ctl: ジョイスティック入力をスロットルとステアのコマンドに変換
+* nn_ctl: 画像入力をスロットルとステアのコマンドに変換
 * s_motor: スロットルとステアのコマンドをGazeboが受け付ける型に変換
+* gzserver: gazebo simulation
+* rviz: 可視化
 
 Topics:
 * key: std_msgs/String キー入力
 * throttle_steer: std_msgs/Int8MultiArray スロットル/ステアコマンド(+-100の整数)
 * /demo/cmd_demo: geometry_msgs/Twist 速度/角速度コマンド
-
-keyboard -> key_ctl -> s_motor -> gazebo
-
+* /cam/camera/image_raw: sensor_msgs/Image ROS画像
 
 ## ビルドと起動
 
@@ -65,6 +79,9 @@ launchファイルを使って必要なノードやgazeboをまとめて起動�
 ros2 launch racer gazebo_manual.launch.py
 ```
 
+## サンプル画像
+
+![](docs/camera_image.png)
 
 ## 参考
 

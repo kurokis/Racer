@@ -22,6 +22,11 @@ def generate_launch_description():
         node_executable='key_ctl',
     )
     
+    joy_ctl_node= Node(
+        package='racer',
+        node_executable='joy_ctl',
+    )
+    
     s_motor_node = Node(
         package='racer',
         node_executable='s_motor',
