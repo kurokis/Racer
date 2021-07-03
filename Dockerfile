@@ -1,6 +1,12 @@
-# デフォルトのベースイメージはJetson向けにl4t-mlとするが、
-# PC用のイメージをビルドする場合は別のベースイメージをBASE_IMAGEで指定する
-ARG BASE_IMAGE=nvcr.io/nvidia/l4t-ml:r32.5.0-py3
+# デフォルトのベースイメージはJetson向けにnvidiajetson/l4t-ros2-eloquent-pytorch:r32.5とする
+# nvidiajetson/l4t-ros2-eloquent-pytorch:r32.5に含まれるもの
+#  - ROS2 Eloquent, colcon
+#  - PyTorch
+#  - TensorRT
+# 別のイメージ(例：nvcr.io/nvidia/l4t-ml:r32.5.0-py3)をベースにビルドする場合は
+# コマンドライン引数のBASE_IMAGEで指定する
+
+ARG BASE_IMAGE=nvidiajetson/l4t-ros2-eloquent-pytorch:r32.5
 FROM $BASE_IMAGE
 USER root
 
@@ -17,25 +23,28 @@ ENV TZ JST-9
 
 # ROS2
 # [How to install ROS2 Eloquent](https://docs.ros.org/en/eloquent/Installation/Linux-Install-Debians.html)
-RUN apt update && apt install -y curl gnupg2 lsb-release
-RUN curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt-key add 
-RUN sh -c 'echo "deb [arch=$(dpkg --print-architecture)] http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" > /etc/apt/sources.list.d/ros2-latest.list'
-RUN apt update
-RUN apt install -y ros-eloquent-desktop
-# shではなくbashを使いたいときは/bin/bashで実行する
-RUN ["/bin/bash", "-c", "source /opt/ros/eloquent/setup.bash"]
-RUN python3 -m pip install -U argcomplete
+#RUN apt update && apt install -y curl gnupg2 lsb-release
+#RUN curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt-key add 
+#RUN sh -c 'echo "deb [arch=$(dpkg --print-architecture)] http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" > /etc/apt/sources.list.d/ros2-latest.list'
+#RUN apt update
+#RUN apt install -y ros-eloquent-desktop
+## shではなくbashを使いたいときは/bin/bashで実行する
+#RUN ["/bin/bash", "-c", "source /opt/ros/eloquent/setup.bash"]
+#RUN python3 -m pip install -U argcomplete
 
 # colcon
 # [How to install colcon](https://colcon.readthedocs.io/en/released/user/installation.html)
-RUN sh -c 'echo "deb [arch=amd64,arm64] http://repo.ros2.org/ubuntu/main `lsb_release -cs` main" > /etc/apt/sources.list.d/ros2-latest.list'
-RUN curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt-key add -
-RUN apt update
-RUN apt install -y python3-colcon-common-extensions
+#RUN sh -c 'echo "deb [arch=amd64,arm64] http://repo.ros2.org/ubuntu/main `lsb_release -cs` main" > /etc/apt/sources.list.d/ros2-latest.list'
+#RUN curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt-key add -
+#RUN apt update
+#RUN apt install -y python3-colcon-common-extensions
 
 # Gazebo
 # [How to install Gazebo](http://gazebosim.org/tutorials?tut=ros2_installing&cat=connect_ros)
 RUN apt install -y ros-eloquent-gazebo-ros-pkgs
+
+# Dockerコンテナ上でkillallを使えるようにする
+RUN apt install -y psmisc
 
 # Jetson Nanoでpygameをインストールするのに必要なライブラリ郡
 RUN apt update
@@ -49,8 +58,3 @@ RUN apt install -y libportmidi-dev
 RUN python3 -m pip install --upgrade pip
 RUN python3 -m pip install -U pygame==1.9.6 --user
 
-# PC環境用のOpenCV,Tensorflowインストール
-# opencv-devのインストール
-#RUN apt-get update -y && apt-get install -y libopencv-dev && apt-get clean && rm -rf /var/lib/apt/lists/*
-# TensorflowとOpencvのインストール
-#RUN python3 -m pip install numpy tensorflow opencv-python

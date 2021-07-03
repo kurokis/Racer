@@ -11,33 +11,39 @@ Jetson Nano JetPack 4.5.1をインストールする。
 ### Step 2. Docker imageのビルド (Jetson用)
 
 JetPackには最初からDockerがインストールされているので自らdockerをインストールする必要はない。
-このリポジトリのルートに移動し、下記コマンドでビルドする。
+このリポジトリのルートに移動し、Docker imageをビルドする。
 
 ```sh
+cd Racer
 sudo docker build -t racer-image .
 ```
 
-このDockerfileは[l4t-ml](https://ngc.nvidia.com/catalog/containers/nvidia:l4t-ml)(バージョン l4t-ml:r32.5.0-py3)
+このDockerfileは[l4t-ros2-eloquent-pytorch](https://developer.nvidia.com/blog/accelerating-ai-modules-for-ros-and-ros-2-on-jetson/)(バージョン l4t-ml:r32.5)
 をベースイメージとしており、4GB程度のデータをダウンロードしてくるので初回のビルドには時間がかかる。
 
 ※稀にビルド途中にファイル破損することがあるが、その状態で再ビルドしてもキャッシュが悪影響して失敗するため、docker rmiコマンドで破損したイメージを削除して再度トライすること。
 
-### Step 2'. Docker imageのビルド (PC用)
 
-PCではベースイメージのl4t-mlが動かないので、別のベースイメージを指定する。
-指定にはBASE_IMAGE引数を使う。
-
-```sh
-sudo docker build -t racer-image --build-arg BASE_IMAGE=python:latest .
-```
-
-### Step 3. Docker imageの動作確認
+### Step 3. Docker imageの実行
 
 ビルドが正常に完了したら、以下のコマンドでインタラクティブセッションを実行する。
 
 ```sh
-sudo docker run -it --rm --runtime nvidia --network host racer-image
+sudo docker run -it --rm --runtime nvidia --network host --mount type=bind,source="$(pwd)",target=/app racer-image
 ```
+
+### Step 4. ROS2の動作確認
+
+Step 3.のコマンドでは
+
+```bash
+cd /app
+colcon build --packages-select racer
+. install/setup.bash
+ros2 launch racer gazebo_manual.launch.py
+```
+
+### Step 5. Docker imageの終了
 
 インタラクティブセッションは以下のコマンドで終了できる。
 
