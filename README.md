@@ -18,7 +18,7 @@ cd Racer
 sudo docker build -t racer-image .
 ```
 
-このDockerfileは[l4t-ros2-eloquent-pytorch](https://developer.nvidia.com/blog/accelerating-ai-modules-for-ros-and-ros-2-on-jetson/)(バージョン l4t-ml:r32.5)
+このDockerfileは[l4t-ros2-eloquent-pytorch](https://developer.nvidia.com/blog/accelerating-ai-modules-for-ros-and-ros-2-on-jetson/)(バージョン l4t-ros2-eloquent-pytorch:r32.5)
 をベースイメージとしており、4GB程度のデータをダウンロードしてくるので初回のビルドには時間がかかる。
 
 ※稀にビルド途中にファイル破損することがあるが、その状態で再ビルドしてもキャッシュが悪影響して失敗するため、docker rmiコマンドで破損したイメージを削除して再度トライすること。
@@ -27,10 +27,13 @@ sudo docker build -t racer-image .
 ### Step 3. Docker imageの起動
 
 ビルドが正常に完了したら、以下のコマンドでインタラクティブセッションを実行する。
+docker imageからGUIの実行を許可するために(1)xhostの設定(2)-eオプションの設定(3)-vオプションの設定をしている。
 
 ```sh
-sudo docker run -it --rm --runtime nvidia --network host --mount type=bind,source="$(pwd)",target=/app racer-image
+sudo xhost +si:localuser:root && sudo docker run -it --rm --runtime nvidia --network host --mount type=bind,source="$(pwd)",target=/app -e DISPLAY=$DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix racer-image
 ```
+
+[参考](https://github.com/dusty-nv/jetson-containers/issues/36)
 
 ### Step 4. マウント状態の確認
 

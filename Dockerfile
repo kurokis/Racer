@@ -58,3 +58,7 @@ RUN apt install -y libportmidi-dev
 RUN python3 -m pip install --upgrade pip
 RUN python3 -m pip install -U pygame==1.9.6 --user
 
+# Install xterm
+RUN apt-get update
+RUN apt-get install -y xterm
+
