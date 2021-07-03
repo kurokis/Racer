@@ -2,7 +2,84 @@
 
 自動運転ミニカー
 
-## 事前準備
+## 環境構築
+
+### Step 1. Jetson NanoにJetPackを入れる
+
+Jetson Nano JetPack 4.5.1をインストールする。
+
+### Step 2. Docker imageのビルド
+
+JetPackには最初からDockerがインストールされているので自らdockerをインストールする必要はない。
+このリポジトリのルートに移動し、Docker imageをビルドする。
+
+```sh
+cd Racer
+sudo docker build -t racer-image .
+```
+
+このDockerfileは[l4t-ros2-eloquent-pytorch](https://developer.nvidia.com/blog/accelerating-ai-modules-for-ros-and-ros-2-on-jetson/)(バージョン l4t-ros2-eloquent-pytorch:r32.5)
+をベースイメージとしており、4GB程度のデータをダウンロードしてくるので初回のビルドには時間がかかる。
+
+※稀にビルド途中にファイル破損することがあるが、その状態で再ビルドしてもキャッシュが悪影響して失敗するため、docker rmiコマンドで破損したイメージを削除して再度トライすること。
+
+
+### Step 3. Docker imageの起動
+
+ビルドが正常に完了したら、以下のコマンドでインタラクティブセッションを実行する。
+docker imageからGUIの実行を許可するために(1)xhostの設定(2)-eオプションの設定(3)-vオプションの設定をしている。
+
+```sh
+sudo xhost +si:localuser:root && sudo docker run -it --rm --runtime nvidia --network host --mount type=bind,source="$(pwd)",target=/app -e DISPLAY=$DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix racer-image
+```
+
+[参考](https://github.com/dusty-nv/jetson-containers/issues/36)
+
+### Step 4. マウント状態の確認
+
+Step 3.ではbind mountでホスト側のRacerディレクトリをコンテナ側の/appディレクトリと紐付けている。
+ソースコード等がコンテナ側から見える状態になっていることを確認する。
+
+```bash
+cd /app
+ls
+```
+
+### Step 5. Docker imageの終了
+
+インタラクティブセッションは以下のコマンドで終了できる。
+
+```
+exit
+```
+
+## ビルドと起動
+
+リポジトリのルート(README.mdがある場所)に移動
+
+```bash
+cd /app
+```
+
+colconでracerパッケージをビルド
+
+```bash
+colcon build --packages-select racer
+```
+
+setup.bashをソースする（installフォルダはビルド後に作成される）
+
+```bash
+. install/setup.bash
+```
+
+launchファイルを使って必要なノードやgazeboをまとめて起動する
+
+```bash
+ros2 launch racer gazebo_manual.launch.py
+```
+
+### 参考: Dockerを使わない場合のセットアップ方法
 
 ros2, colcon, gazeboをインストールしておく。
 
@@ -53,31 +130,6 @@ Topics:
 * /demo/cmd_demo: geometry_msgs/Twist 速度/角速度コマンド
 * /cam/camera/image_raw: sensor_msgs/Image ROS画像
 
-## ビルドと起動
-
-リポジトリのルート(README.mdがある場所)に移動
-
-```bash
-cd ros_ws
-```
-
-colconでracerパッケージをビルド
-
-```bash
-colcon build --packages-select racer
-```
-
-setup.bashをソースする（installフォルダはビルド後に作成される）
-
-```bash
-. install/setup.bash
-```
-
-launchファイルを使って必要なノードやgazeboをまとめて起動する
-
-```bash
-ros2 launch racer gazebo_manual.launch.py
-```
 
 ## サンプル画像
 
