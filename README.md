@@ -133,6 +133,24 @@ ros2 launch racer gazebo_manual.launch.py
 
 ![](docs/camera_image.png)
 
+## Windows上で実行する方法
+
+setup_for_windowsフォルダに[docker-ros2-desktop-vnc](https://github.com/Tiryoh/docker-ros2-desktop-vnc)をベースにしたDockerfileを置いている。これを使うとWindowsで簡単にROS2実行環境が構築できる。このコンテナを実行するとROS2、Gazebo、VNC、Visual Studio Code (ターミナルから`code`で実行)、python、pip、pythonライブラリ(pygame等)がインストールされた状態でスタートする。
+
+1. Docker for Windowsをインストールする
+
+1. docker_build.batを実行(初回は5GB程度のファイルをダウンロードするため時間がかかる)
+
+1. docker_run.batを実行
+
+1. Webブラウザを起動し、http://127.0.0.1:6080/ (またはlocalhost:6080)にアクセスする
+
+1. VNC画面が現れることを確認する
+
+![](docs/vnc_screen.jpg)
+
+注意：同じDockerイメージがすでに実行中だと、ポートが競合するためdocker_run.batの実行が失敗する。
+
 ## 参考
 
 ROS2からGazeboを起動する方法
