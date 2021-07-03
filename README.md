@@ -8,7 +8,7 @@
 
 Jetson Nano JetPack 4.5.1をインストールする。
 
-### Step 2. Docker imageのビルド (Jetson用)
+### Step 2. Docker imageのビルド
 
 JetPackには最初からDockerがインストールされているので自らdockerをインストールする必要はない。
 このリポジトリのルートに移動し、Docker imageをビルドする。
@@ -24,7 +24,7 @@ sudo docker build -t racer-image .
 ※稀にビルド途中にファイル破損することがあるが、その状態で再ビルドしてもキャッシュが悪影響して失敗するため、docker rmiコマンドで破損したイメージを削除して再度トライすること。
 
 
-### Step 3. Docker imageの実行
+### Step 3. Docker imageの起動
 
 ビルドが正常に完了したら、以下のコマンドでインタラクティブセッションを実行する。
 
@@ -32,15 +32,14 @@ sudo docker build -t racer-image .
 sudo docker run -it --rm --runtime nvidia --network host --mount type=bind,source="$(pwd)",target=/app racer-image
 ```
 
-### Step 4. ROS2の動作確認
+### Step 4. マウント状態の確認
 
-Step 3.のコマンドでは
+Step 3.ではbind mountでホスト側のRacerディレクトリをコンテナ側の/appディレクトリと紐付けている。
+ソースコード等がコンテナ側から見える状態になっていることを確認する。
 
 ```bash
 cd /app
-colcon build --packages-select racer
-. install/setup.bash
-ros2 launch racer gazebo_manual.launch.py
+ls
 ```
 
 ### Step 5. Docker imageの終了
@@ -49,6 +48,32 @@ ros2 launch racer gazebo_manual.launch.py
 
 ```
 exit
+```
+
+## ビルドと起動
+
+リポジトリのルート(README.mdがある場所)に移動
+
+```bash
+cd /app
+```
+
+colconでracerパッケージをビルド
+
+```bash
+colcon build --packages-select racer
+```
+
+setup.bashをソースする（installフォルダはビルド後に作成される）
+
+```bash
+. install/setup.bash
+```
+
+launchファイルを使って必要なノードやgazeboをまとめて起動する
+
+```bash
+ros2 launch racer gazebo_manual.launch.py
 ```
 
 ### 参考: Dockerを使わない場合のセットアップ方法
@@ -101,32 +126,6 @@ Topics:
 * throttle_steer: std_msgs/Int8MultiArray スロットル/ステアコマンド(+-100の整数)
 * /demo/cmd_demo: geometry_msgs/Twist 速度/角速度コマンド
 * /cam/camera/image_raw: sensor_msgs/Image ROS画像
-
-## ビルドと起動
-
-リポジトリのルート(README.mdがある場所)に移動
-
-```bash
-cd Racer
-```
-
-colconでracerパッケージをビルド
-
-```bash
-colcon build --packages-select racer
-```
-
-setup.bashをソースする（installフォルダはビルド後に作成される）
-
-```bash
-. install/setup.bash
-```
-
-launchファイルを使って必要なノードやgazeboをまとめて起動する
-
-```bash
-ros2 launch racer gazebo_manual.launch.py
-```
 
 
 ## サンプル画像
