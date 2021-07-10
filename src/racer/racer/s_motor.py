@@ -21,8 +21,14 @@ class SimMotor(Node):
         msg = Twist()
         # linear.x: target speed in m/s
         # angular.z: target steering angle in rad
-        msg.linear.x = (throttle/100.0) * 2.0
-        msg.angular.z = (steer/100.0) * (30/57.3)
+        msg.linear.x = (throttle/100.0) * 3.0
+
+        # when the throttle is in reverse, angular command must be inverted
+        # to steer in the correct direction
+        steer_direction = 1.0
+        if throttle<0:
+            steer_direction = -1.0
+        msg.angular.z = (steer/100.0) * (30/57.3) * steer_direction
         
         self.pub.publish(msg)
 
