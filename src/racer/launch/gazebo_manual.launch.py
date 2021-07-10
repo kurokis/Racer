@@ -10,7 +10,7 @@ import subprocess
 def generate_launch_description():
     # Error prevention: automatically stop gzserver (server process for gazebo)
     # if it is already running
-    # subprocess.run(["killall","-9","gzserver"])
+    subprocess.run(["killall","-9","gzserver"])
 
     ld = LaunchDescription()
 
