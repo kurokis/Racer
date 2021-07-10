@@ -153,6 +153,17 @@ setup_for_windowsフォルダに[docker-ros2-desktop-vnc](https://github.com/Tir
 
 注意：同じDockerイメージがすでに実行中だと、ポートが競合するためdocker_run.batの実行が失敗する。
 
+## Ubuntu上で実行する方法
+
+setup_for_windowsフォルダに[ros:foxy](https://hub.docker.com/_/ros)をベースにしたDockerfileを置いている。これを使うとUbuntuで簡単にROS2実行環境が構築できる。このコンテナを実行するとROS2、Gazebo、python、pip、pythonライブラリ(pygame等)がインストールされた状態でスタートする。
+
+1. Dockerをインストールする(方法はなんでもよいが[snapコマンド](https://snapcraft.io/install/docker/ubuntu)を使うと楽)
+
+1. docker_build.shを実行(初回は5GB程度のファイルをダウンロードするため時間がかかる)
+
+1. docker_run.shを実行
+
+
 ## 参考
 
 ROS2からGazeboを起動する方法
