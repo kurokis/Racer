@@ -5,15 +5,17 @@ FROM ros:foxy
 # "debconf: delaying package configuration, since apt-utils is not installed"
 ENV DEBCONF_NOWARNINGS=yes
 
-# Install xterm, pip, pygame
-RUN apt-get update
-RUN apt-get install -y xterm
-RUN apt-get install -y python3-pip
-RUN python3 -m pip install pygame
-
 # Gazebo
 # [How to install Gazebo](http://gazebosim.org/tutorials?tut=ros2_installing&cat=connect_ros)
+RUN apt-get update
 RUN apt install -y ros-foxy-gazebo-ros-pkgs
 
 # Dockerコンテナ上でkillallを使えるようにする
 RUN apt install -y psmisc
+
+# Install xterm, pip, pygame, numpy, pytorch
+RUN apt-get update
+RUN apt-get install -y xterm
+RUN apt-get install -y python3-pip
+RUN python3 -m pip install pygame
+RUN python3 -m pip install numpy torch torchvision torchaudio
