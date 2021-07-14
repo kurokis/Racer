@@ -55,7 +55,7 @@ class JoystickController(Node):
             data = [int(self.throttle), int(self.steer)]
             msg = Int8MultiArray(data=data)
             self.pub.publish(msg)
-            self.get_logger().info("Publishing:{}".format(msg.data))
+            #self.get_logger().info("Publishing:{}".format(msg.data))
 
 def main(args=None):
     rclpy.init(args=args)

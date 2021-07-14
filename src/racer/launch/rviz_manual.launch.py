@@ -6,56 +6,53 @@ from launch_ros.actions import Node
 from launch.substitutions import LaunchConfiguration
 import subprocess
 
-
 def generate_launch_description():
     # Error prevention: automatically stop gzserver (server process for gazebo)
     # if it is already running
     subprocess.run(["killall","-9","gzserver"])
 
     ld = LaunchDescription()
-
+    
     use_sim_time = LaunchConfiguration('use_sim_time', default='True')
     world_file_name = 'walls2.world'
     pkg_dir = get_package_share_directory('racer')
-
+ 
     os.environ["GAZEBO_MODEL_PATH"] = os.path.join(pkg_dir, 'models')
-
+ 
     world = os.path.join(pkg_dir, 'worlds', world_file_name)
     launch_file_dir = os.path.join(pkg_dir, 'launch')
-
-
+ 
     # gazebo = gzserver (simulation) + gzclient (GUI)
-    gazebo = ExecuteProcess(
-        cmd=['gazebo', '--verbose', world, '-s', 'libgazebo_ros_init.so',
-             '-s', 'libgazebo_ros_factory.so'],
-        output='screen')
+    #gazebo = ExecuteProcess(
+    #        cmd=['gazebo', '--verbose', world, '-s', 'libgazebo_ros_init.so', 
+    #        '-s', 'libgazebo_ros_factory.so'],
+    #        output='screen')
 
     # Run only the simulation part of gazebo. Visualization to be done on rviz.
-    # gzserver = ExecuteProcess(
-    #    cmd=['gzserver', '--verbose', world, '-s', 'libgazebo_ros_init.so',
-    #        '-s', 'libgazebo_ros_factory.so'],
-    #    output='screen',
-    # )
-
+    gzserver = ExecuteProcess(
+        cmd=['gzserver', '--verbose', world, '-s', 'libgazebo_ros_init.so', 
+            '-s', 'libgazebo_ros_factory.so'],
+        output='screen',
+    )
 
     # Run rviz with preset configuration
-    # rviz = ExecuteProcess(
-    #    cmd=['rviz2','-d','./src/rviz_config.rviz'],
-    # )
-
+    rviz = ExecuteProcess(
+        cmd=['rviz2','-d','./src/rviz_config.rviz'],
+    )
+    
     keyboard_node = Node(
         package='racer',
         node_executable='keyboard',
         # open another terminal for keyboard control
-        prefix='xterm -e',
+        prefix = 'xterm -e',
         output='screen',
     )
-
+    
     key_ctl_node = Node(
         package='racer',
         node_executable='key_ctl',
     )
-
+    
     joy_ctl_node = Node(
         package='racer',
         node_executable='joy_ctl',
@@ -64,7 +61,7 @@ def generate_launch_description():
     nn_ctl_node = Node(
         package='racer',
         node_executable='nn_ctl',
-        output='screen',  # print logger info
+        output='screen', # print logger info
     )
 
     s_motor_node = Node(
@@ -72,22 +69,14 @@ def generate_launch_description():
         node_executable='s_motor',
         output='screen',
     )
-
-    r_motor_node = Node(
-        package='racer',
-        node_executable='r_motor',
-        output='screen',
-    )
     
-    ld.add_action(gazebo)
-    # ld.add_action(gzserver)
-    # ld.add_action(rviz)
-
+    #ld.add_action(gazebo)
+    ld.add_action(gzserver)
+    ld.add_action(rviz)
     ld.add_action(keyboard_node)
     ld.add_action(key_ctl_node)
     ld.add_action(joy_ctl_node)
     ld.add_action(nn_ctl_node)
     ld.add_action(s_motor_node)
-    ld.add_action(r_motor_node)
-
+    
     return ld
