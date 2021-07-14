@@ -22,11 +22,11 @@ def generate_launch_description():
     world = os.path.join(pkg_dir, 'worlds', world_file_name)
     launch_file_dir = os.path.join(pkg_dir, 'launch')
  
-    # gazebo = gzserver (simulation) + gzclient (GUI)
-    #gazebo = ExecuteProcess(
-    #        cmd=['gazebo', '--verbose', world, '-s', 'libgazebo_ros_init.so', 
-    #        '-s', 'libgazebo_ros_factory.so'],
-    #        output='screen')
+    #gazebo = gzserver (simulation) + gzclient (GUI)
+    gazebo = ExecuteProcess(
+           cmd=['gazebo', '--verbose', world, '-s', 'libgazebo_ros_init.so', 
+           '-s', 'libgazebo_ros_factory.so'],
+           output='screen')
 
     # Run only the simulation part of gazebo. Visualization to be done on rviz.
     gzserver = ExecuteProcess(
@@ -35,7 +35,7 @@ def generate_launch_description():
         output='screen',
     )
 
-    # Run rviz with preset configuration
+    #Run rviz with preset configuration
     rviz = ExecuteProcess(
         cmd=['rviz2','-d','./src/rviz_config.rviz'],
     )
@@ -69,8 +69,14 @@ def generate_launch_description():
         node_executable='s_motor',
         output='screen',
     )
+
+    r_motor_node = Node(
+        package='racer',
+        node_executable='r_motor',
+        output='screen',
+    )
     
-    #ld.add_action(gazebo)
+    ld.add_action(gazebo)
     ld.add_action(gzserver)
     ld.add_action(rviz)
     ld.add_action(keyboard_node)
@@ -78,5 +84,6 @@ def generate_launch_description():
     ld.add_action(joy_ctl_node)
     ld.add_action(nn_ctl_node)
     ld.add_action(s_motor_node)
-    
+    ld.add_action(r_motor_node)
+
     return ld

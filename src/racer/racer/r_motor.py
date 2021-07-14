@@ -6,14 +6,13 @@ from geometry_msgs.msg import Twist
 import json
 from board import SCL, SDA
 import busio
-import time
 from adafruit_pca9685 import PCA9685
 
 
-class motor_contoroller_via_pca9685(Node):
+class motor_contoroller_via_pca9685(Node): # Node
     def __init__(self):
         super().__init__('r_motor')
-        self.__duty_param=self.__import_param("../params/motors.json")
+        self.__duty_param=self.__import_param("/home/ryo/src/src/racer/params/motors.json")
         print(self.__duty_param)
         self.__i2c_bus = busio.I2C(SCL, SDA)
         self.__pca = PCA9685(self.__i2c_bus)
@@ -25,7 +24,6 @@ class motor_contoroller_via_pca9685(Node):
             10)
         self.__change_steer_pwm(0)
         self.__change_throttle_pwm(0)
-        print("inited")
 
     def __del__(self):
         self.__change_steer_pwm(0)
@@ -43,27 +41,14 @@ class motor_contoroller_via_pca9685(Node):
         self.__change_steer_pwm(steer)
         self.__change_throttle_pwm(throttle)
 
-    def run_local(self):
-        while True:
-            self.__change_steer_pwm(0)
-            self.__change_throttle_pwm(0)
-            time.sleep(2)
-            self.__change_steer_pwm(80)
-            self.__change_throttle_pwm(80)
-            time.sleep(2)
-            self.__change_steer_pwm(-50)
-            self.__change_throttle_pwm(-50)
-            time.sleep(2)
-
+     
 
     def __change_steer_pwm(self,steer):
         duty=self.__steer2pwm(steer)
-        print(duty)
         self.__pca.channels[self.__duty_param["servo"]["ch"]].duty_cycle = int(duty)
 
     def __change_throttle_pwm(self,throttle):
         duty=self.__throttle2pwm(throttle)
-        print(duty)
         self.__pca.channels[self.__duty_param["dcmotor"]["ch"]].duty_cycle = int(duty)
 
 
@@ -98,12 +83,11 @@ class motor_contoroller_via_pca9685(Node):
 
 def main(args=None):
     rclpy.init(args=args)
-    
+
     motor_contor = motor_contoroller_via_pca9685()
 
     rclpy.spin(motor_contor)
-    # motor_contor = motor_contoroller_via_pca9685()
-    # motor_contor.run()
+
     
 if __name__ == '__main__':
     main()
