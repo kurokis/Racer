@@ -37,7 +37,6 @@ def generate_launch_description():
     #    output='screen',
     # )
 
-
     # Run rviz with preset configuration
     # rviz = ExecuteProcess(
     #    cmd=['rviz2','-d','./src/rviz_config.rviz'],
@@ -83,11 +82,14 @@ def generate_launch_description():
     # ld.add_action(gzserver)
     # ld.add_action(rviz)
 
+
+
     ld.add_action(keyboard_node)
     ld.add_action(key_ctl_node)
     ld.add_action(joy_ctl_node)
     ld.add_action(nn_ctl_node)
     ld.add_action(s_motor_node)
     ld.add_action(r_motor_node)
+
 
     return ld
