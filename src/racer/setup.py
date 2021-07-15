@@ -29,7 +29,7 @@ setup(
         (os.path.join('share', package_name,'models/prius_fullscale/meshes/'), glob('./models/prius_fullscale/meshes/*.*')),
         (os.path.join('share', package_name,'models/prius_fullscale/materials/textures'), glob('./models/prius_fullscale/materials/textures/*.*')),
         
-        (os.path.join('share', package_name), glob('./param/*.*')),
+        (os.path.join('share', package_name,'params'), glob('params/*.json')),
 
     ],
     install_requires=['setuptools'],
@@ -46,7 +46,9 @@ setup(
             's_motor = racer.s_motor:main',
             'joy_ctl = racer.joy_ctl:main',
             'nn_ctl = racer.nn_ctl:main',
-            'r_motor = racer.r_motor:main',
+            # 'r_motor = racer.r_motor:main',
+            'front_camera = racer.front_camera:main',
+            'camera_subscriber = racer.camera_subscriber:main',
         ],
     },
 )

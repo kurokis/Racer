@@ -106,14 +106,14 @@ class KeyboardController(Node):
             # saturate throttle and steer
             self.throttle = max(min(self.throttle, MAX_ABS_THROTTLE),-MAX_ABS_THROTTLE)
             self.steer = max(min(self.steer, MAX_ABS_STEER),-MAX_ABS_STEER)
-        else:
-            self.throttle *= 0.8
-            self.steer *= 0.8
+        #else:
+            # self.throttle *= 0.8
+            # self.steer *= 0.8
         
         data = [int(self.throttle), int(self.steer)]
         msg = Int8MultiArray(data=data)
         self.pub.publish(msg)
-        #self.get_logger().info("Publishing:{}".format(msg.data))
+        self.get_logger().info("Publishing:{}".format(msg.data))
 
 def main(args=None):
     rclpy.init(args=args)
