@@ -58,6 +58,11 @@ RUN apt install -y libportmidi-dev
 RUN python3 -m pip install --upgrade pip
 RUN python3 -m pip install -U pygame==1.9.6 --user
 
+# Adafruit-Blinka: packages emulating the CircuitPython API for devices or hosts running CPython or MicroPython
+# https://learn.adafruit.com/circuitpython-libraries-on-linux-and-the-nvidia-jetson-nano/circuitpython-dragonboard
+# boardやbusioをimportできるようになる
+RUN python3 -m pip install Adafruit-Blinka
+
 # Install xterm
 RUN apt-get update
 RUN apt-get install -y xterm
