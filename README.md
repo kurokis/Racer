@@ -76,7 +76,7 @@ setup.bashをソースする（installフォルダはビルド後に作成され
 launchファイルを使って必要なノードやgazeboをまとめて起動する
 
 ```bash
-ros2 launch racer gazebo_manual.launch.py
+ros2 launch racer sim_racer.launch.py
 ```
 
 ### 参考: Dockerを使わない場合のセットアップ方法
