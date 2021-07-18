@@ -12,7 +12,7 @@ from adafruit_pca9685 import PCA9685
 class motor_contoroller_via_pca9685(Node): # Node
     def __init__(self):
         super().__init__('r_motor')
-        self.__duty_param=self.__import_param("~/src/src/racer/params/motors.json")
+        self.__duty_param=self.__import_param("/params/motors.json")
         print(self.__duty_param)
         self.__i2c_bus = busio.I2C(SCL, SDA)
         self.__pca = PCA9685(self.__i2c_bus)
