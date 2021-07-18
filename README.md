@@ -15,7 +15,7 @@ JetPackには最初からDockerがインストールされているので自らd
 
 ```sh
 cd Racer
-sudo docker build -t racer-image .
+bash setup_for_jetson/docker_build.sh
 ```
 
 このDockerfileは[l4t-ros2-eloquent-pytorch](https://developer.nvidia.com/blog/accelerating-ai-modules-for-ros-and-ros-2-on-jetson/)(バージョン l4t-ros2-eloquent-pytorch:r32.5)
@@ -26,11 +26,10 @@ sudo docker build -t racer-image .
 
 ### Step 3. Docker imageの起動
 
-ビルドが正常に完了したら、以下のコマンドでインタラクティブセッションを実行する。
-docker imageからGUIの実行を許可するために(1)xhostの設定(2)-eオプションの設定(3)-vオプションの設定をしている。
+ビルドが正常に完了したら、以下のコマンドでdockerコンテナを実行する。
 
 ```sh
-sudo xhost +si:localuser:root && sudo docker run -it --rm --runtime nvidia --network host --mount type=bind,source="$(pwd)",target=/app -e DISPLAY=$DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix racer-image
+bash setup_for_jetson/docker_run.sh
 ```
 
 [参考](https://github.com/dusty-nv/jetson-containers/issues/36)
@@ -53,47 +52,33 @@ ls
 exit
 ```
 
-## ビルドと起動
+## Racerパッケージのビルドと起動
 
-リポジトリのルート(README.mdがある場所)に移動
+1. リポジトリのルート(README.mdがある場所)に移動
 
 ```bash
 cd /app
 ```
 
-colconでracerパッケージをビルド
+2. colconでracerパッケージをビルド
 
 ```bash
 colcon build --packages-select racer
 ```
 
-setup.bashをソースする（installフォルダはビルド後に作成される）
+3. setup.bashをソースする（installフォルダはビルド後に作成される）
 
 ```bash
 . install/setup.bash
 ```
 
-launchファイルを使って必要なノードやgazeboをまとめて起動する
+4. launchファイルを使って必要なノードやgazeboをまとめて起動する
 
 ```bash
 ros2 launch racer sim_racer.launch.py
 ```
 
-### 参考: Dockerを使わない場合のセットアップ方法
-
-ros2, colcon, gazeboをインストールしておく。
-
-Jetson Nano JetPack 4.5.1
-
- - Ubuntu 18.04
- - ROS2 Eloquent 
-
-[How to install ROS2 Elquent](https://docs.ros.org/en/eloquent/Installation/Linux-Install-Debians.html)
-
-[How to install colcon](https://colcon.readthedocs.io/en/released/user/installation.html)
-
-[How to install Gazebo](http://gazebosim.org/tutorials?tut=ros2_installing&cat=connect_ros)
-
+手順2~4はスクリプトにまとめてある。sim_racerを実行したい場合は`bash sim_run.sh`、racerを実行したい場合は`bash run.sh`で代替できる。
 
 ## パッケージ構成
 
@@ -101,6 +86,8 @@ Jetson Nano JetPack 4.5.1
 src/
   racer/
     launch/ launchファイルの格納場所
+      racer.launch.py 実機モードのlaunchファイル
+      sim_racer.launch.py シミュレータモードのlaunchファイル
     models/ 車両モデル（SDF、メッシュ）
     racer/ コード本体
     resource/ 略
@@ -109,6 +96,11 @@ src/
     package.xml パッケージ概要、依存ライブラリを記述
     setup.cfg 略
     setup.py ビルド設定を記述
+setup_for_jetson/ jetson用のdockerfile、docker buildスクリプト、docker runスクリプト
+setup_for_ubuntu/ jetson用のdockerfile、docker buildスクリプト、docker runスクリプト
+setup_for_windows/ jetson用のdockerfile、docker buildスクリプト、docker runスクリプト
+run.sh 実機モードでのビルドからlaunchまでを一括で実行
+sim_run.sh シミュレータモードでのビルドからlaunchまでを一括で実行
 ```
 
 ## ソフト構成
@@ -116,17 +108,25 @@ src/
 ![](docs/rqt_graph.png)
 
 Nodes:
+* mode: 制御モード管理
 * keyboard: キーボード入力の受付
 * key_ctl: キーボード入力をスロットルとステアのコマンドに変換
+* joystick: ジョイスティック入力の受付
 * joy_ctl: ジョイスティック入力をスロットルとステアのコマンドに変換
 * nn_ctl: 画像入力をスロットルとステアのコマンドに変換
+* priority: 速度コマンドの優先度調停
 * s_motor: スロットルとステアのコマンドをGazeboが受け付ける型に変換
-* gzserver: gazebo simulation
-* rviz: 可視化
+* r_motor: スロットルとステアのコマンドをi2C出力に変換
+* gazebo: gazebo simulation
 
 Topics:
 * key: std_msgs/String キー入力
-* throttle_steer: std_msgs/Int8MultiArray スロットル/ステアコマンド(+-100の整数)
+* stick: std_msgs/Int8MultiArray ジョイスティック入力
+* mode: std_msgs/Int8 制御モード
+* ts_key: std_msgs/Int8MultiArray キーボードのスロットル/ステアコマンド(+-100の整数)
+* ts_joy: std_msgs/Int8MultiArray ジョイスティックのスロットル/ステアコマンド(+-100の整数)
+* ts_nn: std_msgs/Int8MultiArray ニューラルネットワークのスロットル/ステアコマンド(+-100の整数)
+* throttle_steer: std_msgs/Int8MultiArray 調停後のスロットル/ステアコマンド(+-100の整数)
 * /demo/cmd_demo: geometry_msgs/Twist 速度/角速度コマンド
 * /cam/camera/image_raw: sensor_msgs/Image ROS画像
 
@@ -163,6 +163,20 @@ setup_for_windowsフォルダに[ros:foxy](https://hub.docker.com/_/ros)をベ�
 
 1. docker_run.shを実行
 
+## 参考: Dockerを使わない場合のセットアップ方法
+
+ros2, colcon, gazeboをインストールしておく。
+
+Jetson Nano JetPack 4.5.1
+
+ - Ubuntu 18.04
+ - ROS2 Eloquent 
+
+[How to install ROS2 Elquent](https://docs.ros.org/en/eloquent/Installation/Linux-Install-Debians.html)
+
+[How to install colcon](https://colcon.readthedocs.io/en/released/user/installation.html)
+
+[How to install Gazebo](http://gazebosim.org/tutorials?tut=ros2_installing&cat=connect_ros)
 
 ## 参考
 
