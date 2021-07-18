@@ -45,7 +45,7 @@ RUN apt install -y ros-eloquent-gazebo-ros-pkgs
 
 # rqt
 RUN apt update
-RUN apt install -y ~nros-foxy-rqt*
+RUN apt install -y ros-eloquent-rqt*
 
 # Dockerコンテナ上でkillallを使えるようにする
 RUN apt install -y psmisc
