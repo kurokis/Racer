@@ -42,11 +42,12 @@ setup(
             'mode = racer.mode:main',
             'keyboard = racer.keyboard:main',
             'key_ctl = racer.key_ctl:main',
-            's_motor = racer.s_motor:main',
             'joystick = racer.joystick:main',
             'joy_ctl = racer.joy_ctl:main',
             'nn_ctl = racer.nn_ctl:main',
             'priority = racer.priority:main',
+            's_motor = racer.s_motor:main',
+            'r_motor = racer.r_motor:main',
         ],
     },
 )
