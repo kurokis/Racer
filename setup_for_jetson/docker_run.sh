@@ -3,6 +3,7 @@ cd "$(dirname "$0")"
 cd ..
 
 #Docker実行:
+# - 実行するコンテナの名前を指定(--name)
 # - 終了時にイメージ削除(--rm)
 # - インタラクティブセッションで実行(-it)
 # - リポジトリのルートを/appにbind mount(--mount)
@@ -11,7 +12,7 @@ cd ..
 # - ジョイスティック対応(--privileged, --device)
 # - イメージ名ubunturos(docker_build.shで指定済み)
 sudo xhost +si:localuser:root
-sudo docker run --rm -it --privileged \
+sudo docker run --name racer --rm -it --privileged \
     --mount type=bind,source="$(pwd)",target=/app \
     --runtime nvidia \
     --net=host \
