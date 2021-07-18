@@ -46,6 +46,7 @@ setup(
             'joystick = racer.joystick:main',
             'joy_ctl = racer.joy_ctl:main',
             'nn_ctl = racer.nn_ctl:main',
+            'priority = racer.priority:main',
         ],
     },
 )

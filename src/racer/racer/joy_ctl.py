@@ -5,7 +5,7 @@ from std_msgs.msg import String, Int8, Int8MultiArray
 class JoystickController(Node):
     def __init__(self):
         super().__init__('joystick_controller')
-        self.pub = self.create_publisher(Int8MultiArray, 'throttle_steer', 10)
+        self.pub = self.create_publisher(Int8MultiArray, 'ts_joy', 10)
         self.sub = self.create_subscription(
             Int8MultiArray,
             'stick',

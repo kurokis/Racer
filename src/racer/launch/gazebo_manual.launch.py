@@ -75,6 +75,11 @@ def generate_launch_description():
         output='screen',  # print logger info
     )
 
+    priority_node = Node(
+        package='racer',
+        node_executable='priority',
+    )
+
     s_motor_node = Node(
         package='racer',
         node_executable='s_motor',
@@ -90,6 +95,7 @@ def generate_launch_description():
     ld.add_action(joystick_node)
     ld.add_action(joy_ctl_node)
     ld.add_action(nn_ctl_node)
+    ld.add_action(priority_node)
     ld.add_action(s_motor_node)
 
     return ld
