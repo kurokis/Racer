@@ -4,7 +4,7 @@ from std_msgs.msg import String, Int8, Int8MultiArray
 
 class Priority(Node):
     def __init__(self):
-        super().__init__('mode')
+        super().__init__('priority')
         self.pub = self.create_publisher(Int8MultiArray, 'throttle_steer', 10)
         self.sub1 = self.create_subscription(
             Int8,
