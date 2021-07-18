@@ -39,6 +39,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            'mode = racer.mode:main',
             'keyboard = racer.keyboard:main',
             'key_ctl = racer.key_ctl:main',
             's_motor = racer.s_motor:main',

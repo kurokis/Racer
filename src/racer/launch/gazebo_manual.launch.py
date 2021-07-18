@@ -41,6 +41,11 @@ def generate_launch_description():
     #    cmd=['rviz2','-d','./src/rviz_config.rviz'],
     # )
 
+    mode_node = Node(
+        package='racer',
+        node_executable='mode',
+    )
+
     keyboard_node = Node(
         package='racer',
         node_executable='keyboard',
@@ -79,6 +84,7 @@ def generate_launch_description():
     ld.add_action(gazebo)
     # ld.add_action(gzserver)
     # ld.add_action(rviz)
+    ld.add_action(mode_node)
     ld.add_action(keyboard_node)
     ld.add_action(key_ctl_node)
     ld.add_action(joystick_node)
