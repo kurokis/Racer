@@ -68,6 +68,8 @@ RUN python3 -m pip install -U pygame==1.9.6 --user
 # boardやbusioをimportできるようになる
 RUN python3 -m pip install Jetson.GPIO
 RUN python3 -m pip install Adafruit-Blinka
+RUN python3 -m pip install adafruit-circuitpython-pca9685
+RUN python3 -m pip install adafruit-circuitpython-servokit
 
 # Install xterm
 RUN apt-get update
