@@ -23,6 +23,7 @@ def generate_launch_description():
     world = os.path.join(pkg_dir, 'worlds', world_file_name)
     launch_file_dir = os.path.join(pkg_dir, 'launch')
 
+
     # gazebo = gzserver (simulation) + gzclient (GUI)
     gazebo = ExecuteProcess(
         cmd=['gazebo', '--verbose', world, '-s', 'libgazebo_ros_init.so',
@@ -71,13 +72,24 @@ def generate_launch_description():
         output='screen',
     )
 
+    r_motor_node = Node(
+        package='racer',
+        node_executable='r_motor',
+        output='screen',
+    )
+    
     ld.add_action(gazebo)
     # ld.add_action(gzserver)
     # ld.add_action(rviz)
+
+
+
     ld.add_action(keyboard_node)
     ld.add_action(key_ctl_node)
     ld.add_action(joy_ctl_node)
     ld.add_action(nn_ctl_node)
     ld.add_action(s_motor_node)
+    ld.add_action(r_motor_node)
+
 
     return ld
