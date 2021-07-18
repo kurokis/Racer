@@ -1,5 +1,4 @@
 import os
-from racer import camera_subscriber
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import ExecuteProcess
@@ -93,12 +92,6 @@ def generate_launch_description():
     #     output='screen',
     # )
 
-    front_camera_node = Node(
-        package='racer',
-        node_executable='front_camera',
-        output='screen',
-    )
-
     ld.add_action(gazebo)
     # ld.add_action(gzserver)
     # ld.add_action(rviz)
@@ -110,7 +103,6 @@ def generate_launch_description():
     ld.add_action(nn_ctl_node)
     ld.add_action(priority_node)
     ld.add_action(s_motor_node)
-    ld.add_action(front_camera_node)
-    ld.add_action(camera_subscriber_node)
+    
 
     return ld
