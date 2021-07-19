@@ -34,7 +34,7 @@ def main(args=None):
             msg = String()
             msg.data = key
             pub.publish(msg)
-            #node.get_logger().info('Publishing: "%s"' % msg.data)
+            node.get_logger().info('Publishing: "%s"' % msg.data)
              
     except Exception as e:
         print(e)
