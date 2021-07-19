@@ -28,7 +28,9 @@ setup(
         (os.path.join('share', package_name,'models/prius_fullscale/'), glob('./models/prius_fullscale/*.*')),
         (os.path.join('share', package_name,'models/prius_fullscale/meshes/'), glob('./models/prius_fullscale/meshes/*.*')),
         (os.path.join('share', package_name,'models/prius_fullscale/materials/textures'), glob('./models/prius_fullscale/materials/textures/*.*')),
-        
+
+        # Path to the neural network model
+        (os.path.join('share', package_name,'params/'), glob('params/*.pt')),
     ],
     install_requires=['setuptools'],
     zip_safe=True,

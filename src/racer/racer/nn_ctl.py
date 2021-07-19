@@ -1,3 +1,5 @@
+import os
+from ament_index_python.packages import get_package_share_directory
 import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String, Int8, Int8MultiArray
@@ -58,7 +60,16 @@ class NeuralController(Node):
 
         # neural network
         device = 'cuda' if torch.cuda.is_available() else 'cpu'
-        self.model = NeuralNetwork().to(device)
+        model = NeuralNetwork()
+        pkg_dir = get_package_share_directory('racer')
+        model_path = os.path.join(pkg_dir, "params/model.pt")
+        if os.path.exists(model_path):
+            self.get_logger().info("Neural network model exists at {}. Loading weights from the model.".format(model_path))
+            model.load_state_dict(torch.load(model_path))
+            model.eval()
+        else:
+            self.get_logger().info("Neural network model does not exist. Using initial values for model weights.")
+        self.model = model.to(device)
         
     def image_callback(self, msg):
         # http://docs.ros.org/en/api/sensor_msgs/html/msg/Image.html
