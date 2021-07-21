@@ -86,6 +86,12 @@ def generate_launch_description():
         output='screen',
     )
 
+    # r_motor_node = Node(
+    #     package='racer',
+    #     node_executable='r_motor',
+    #     output='screen',
+    # )
+
     ld.add_action(gazebo)
     # ld.add_action(gzserver)
     # ld.add_action(rviz)
@@ -97,5 +103,6 @@ def generate_launch_description():
     ld.add_action(nn_ctl_node)
     ld.add_action(priority_node)
     ld.add_action(s_motor_node)
+    
 
     return ld

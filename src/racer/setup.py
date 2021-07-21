@@ -29,6 +29,11 @@ setup(
         (os.path.join('share', package_name,'models/prius_fullscale/meshes/'), glob('./models/prius_fullscale/meshes/*.*')),
         (os.path.join('share', package_name,'models/prius_fullscale/materials/textures'), glob('./models/prius_fullscale/materials/textures/*.*')),
         
+        # Path to parameter json
+        (os.path.join('share', package_name,'params'), glob('params/*.json')),
+
+        # Path to the neural network model
+        (os.path.join('share', package_name,'params/'), glob('params/*.pt')),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
@@ -48,6 +53,7 @@ setup(
             'priority = racer.priority:main',
             's_motor = racer.s_motor:main',
             'r_motor = racer.r_motor:main',
+            'front_camera = racer.front_camera:main',
         ],
     },
 )

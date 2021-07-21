@@ -1,18 +1,21 @@
+import os
 import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String, Int8MultiArray
 from geometry_msgs.msg import Twist
+from ament_index_python.packages import get_package_share_directory
 
 import json
 from board import SCL, SDA
 import busio
 from adafruit_pca9685 import PCA9685
 
-
 class motor_contoroller_via_pca9685(Node): # Node
     def __init__(self):
         super().__init__('r_motor')
-        self.__duty_param=self.__import_param("~/src/src/racer/params/motors.json")
+        param_file = os.path.join(get_package_share_directory('racer'),"params/motors.json")
+        print("param file: {}".format(param_file))
+        self.__duty_param=self.__import_param(param_file)
         print(self.__duty_param)
         self.__i2c_bus = busio.I2C(SCL, SDA)
         self.__pca = PCA9685(self.__i2c_bus)
