@@ -15,4 +15,4 @@ set REPO_ROOT_LINUX_STYLE=%REPO_ROOT_LINUX_STYLE: =%
 echo mount source: %REPO_ROOT_LINUX_STYLE%
 
 rem Docker実行: 終了時にイメージ削除,ホストPCのポート6080をコンテナのポート80に接続,リポジトリのルートを/appにbind mount,共有メモリサイズ512MB(必要に応じ調整),イメージ名winros(docker_build.batで指定済み)
-docker run --rm -p 6080:80 --mount type=bind,source=%REPO_ROOT_LINUX_STYLE%,target=/app --shm-size=512m winros
+docker run --name racer --rm -p 6080:80 --mount type=bind,source=%REPO_ROOT_LINUX_STYLE%,target=/app --shm-size=512m winros

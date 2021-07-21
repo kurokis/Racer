@@ -2,43 +2,10 @@ import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String, Int8, Int8MultiArray
 
-#class KeyListener(Node):
-#    def __init__(self):
-#        super().__init__('key_listener')
-#        self.subscription = self.create_subscription(
-#            String,
-#            'key',
-#            self.listener_callback,
-#            10)
-#        self.subscription
-#        self.new_key = None
-#        self.new_key_available = False
-#
-#    def listener_callback(self, msg):
-#        self.new_key = msg.data
-#        self.new_key_available = True
-#        #self.get_logger().info('Received key: "%s"' % msg.data)
-#    
-#    def read(self):
-#        if self.new_key_available:
-#            self.new_key_available = False    
-#            return self.new_key
-#        else:
-#            return None
-#
-#class CommandPublisher(Node):
-#    def __init__(self):
-#        super().__init__('command_publisher')
-#        self.pub = self.create_publisher(Int8MultiArray, 'throttle_steer', 10)
-#        
-#    def publish(self, msg):
-#        self.pub.publish(msg)
-#        self.get_logger().info("Publishing:{}".format(msg.data))
-
 class KeyboardController(Node):
     def __init__(self):
         super().__init__('keyboard_controller')
-        self.pub = self.create_publisher(Int8MultiArray, 'throttle_steer', 10)
+        self.pub = self.create_publisher(Int8MultiArray, 'ts_key', 10)
         self.sub = self.create_subscription(
             String,
             'key',
@@ -107,8 +74,8 @@ class KeyboardController(Node):
             self.throttle = max(min(self.throttle, MAX_ABS_THROTTLE),-MAX_ABS_THROTTLE)
             self.steer = max(min(self.steer, MAX_ABS_STEER),-MAX_ABS_STEER)
         else:
-            self.throttle *= 0.8
-            self.steer *= 0.8
+            self.throttle = 0
+            self.steer = 0
         
         data = [int(self.throttle), int(self.steer)]
         msg = Int8MultiArray(data=data)
@@ -117,12 +84,7 @@ class KeyboardController(Node):
 
 def main(args=None):
     rclpy.init(args=args)
-    
     keyboard_controller = KeyboardController()
-    
-    #while rclpy.ok():
-    #    rclpy.spin_once(keyboard_controller.sub, timeout_sec=0)
-    #    rclpy.spin_once(keyboard_controller, timeout_sec=0)
     rclpy.spin(keyboard_controller)
     
 if __name__ == '__main__':

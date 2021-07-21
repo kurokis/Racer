@@ -29,8 +29,6 @@ setup(
         (os.path.join('share', package_name,'models/prius_fullscale/meshes/'), glob('./models/prius_fullscale/meshes/*.*')),
         (os.path.join('share', package_name,'models/prius_fullscale/materials/textures'), glob('./models/prius_fullscale/materials/textures/*.*')),
         
-        (os.path.join('share', package_name), glob('./param/*.*')),
-
     ],
     install_requires=['setuptools'],
     zip_safe=True,
@@ -41,11 +39,14 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            'mode = racer.mode:main',
             'keyboard = racer.keyboard:main',
             'key_ctl = racer.key_ctl:main',
-            's_motor = racer.s_motor:main',
+            'joystick = racer.joystick:main',
             'joy_ctl = racer.joy_ctl:main',
             'nn_ctl = racer.nn_ctl:main',
+            'priority = racer.priority:main',
+            's_motor = racer.s_motor:main',
             'r_motor = racer.r_motor:main',
         ],
     },

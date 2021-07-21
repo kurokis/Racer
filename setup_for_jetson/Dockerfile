@@ -43,6 +43,10 @@ ENV TZ JST-9
 # [How to install Gazebo](http://gazebosim.org/tutorials?tut=ros2_installing&cat=connect_ros)
 RUN apt install -y ros-eloquent-gazebo-ros-pkgs
 
+# rqt
+RUN apt update
+RUN apt install -y ros-eloquent-rqt*
+
 # Dockerコンテナ上でkillallを使えるようにする
 RUN apt install -y psmisc
 

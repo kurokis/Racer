@@ -1,1 +1,1 @@
-colcon build --packages-select racer && . install/setup.bash && ros2 launch racer gazebo_manual.launch.py
+colcon build --packages-select racer && . install/setup.bash && ros2 launch racer racer.launch.py

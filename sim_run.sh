@@ -1,0 +1,1 @@
+colcon build --packages-select racer && . install/setup.bash && ros2 launch racer sim_racer.launch.py
