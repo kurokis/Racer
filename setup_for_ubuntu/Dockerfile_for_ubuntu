@@ -22,5 +22,6 @@ RUN apt-get update
 RUN apt-get install -y xterm
 RUN apt-get install -y python3-pip
 RUN python3 -m pip install pygame
-RUN python3 -m pip install numpy
+RUN python3 -m pip install numpy matplotlib scipy jupyterlab pandas pillow
 RUN python3 -m pip install torch torchvision torchaudio torchsummary
+RUN python3 -m pip install bokeh
