@@ -60,12 +60,12 @@ class NeuralController(Node):
 
         # neural network
         device = 'cuda' if torch.cuda.is_available() else 'cpu'
-        model = NeuralNetwork()
+        model = NeuralNetwork().to(device)
         pkg_dir = get_package_share_directory('racer')
         model_path = os.path.join(pkg_dir, "params/model.pt")
         if os.path.exists(model_path):
             self.get_logger().info("Neural network model exists at {}. Loading weights from the model.".format(model_path))
-            model.load_state_dict(torch.load(model_path))
+            model.load_state_dict(torch.load(model_path, map_location=torch.device(device)))
             model.eval()
         else:
             self.get_logger().info("Neural network model does not exist. Using initial values for model weights.")
@@ -104,9 +104,14 @@ class NeuralController(Node):
         y = y.squeeze()
         y_numpy = y.to('cpu').detach().numpy().copy()
 
-        self.throttle = y_numpy[0]
-        self.steer = y_numpy[1]
-        #self.get_logger().info(str(y_numpy))
+        self.get_logger().info("Raw model output: {}".format(y_numpy))
+        throttle = y_numpy[0]
+        throttle = int(min(1, max(0, throttle)))
+        steer = y_numpy[1]
+        steer = int(min(1, max(-1, throttle)))
+        
+        self.throttle = throttle
+        self.steer = steer
         
 
 def main(args=None):
