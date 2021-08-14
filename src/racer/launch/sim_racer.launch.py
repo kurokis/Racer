@@ -5,6 +5,7 @@ from launch.actions import ExecuteProcess
 from launch_ros.actions import Node
 from launch.substitutions import LaunchConfiguration
 import subprocess
+import datetime
 
 def is_new_ros_version():
     out = subprocess.Popen(['ros2', 'wtf'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
@@ -149,6 +150,12 @@ def generate_launch_description():
             output='screen',
         )
 
+    os.makedirs("bag", exist_ok=True)
+    log_dir = "bag/"+datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9))).strftime("%Y%m%d_%H%M%S")
+    rosbag_record = ExecuteProcess(
+        cmd=['ros2', 'bag', 'record', '-a', '-o', log_dir],
+        output='screen',
+    )
 
     ld.add_action(gazebo)
     # ld.add_action(gzserver)
@@ -161,6 +168,7 @@ def generate_launch_description():
     ld.add_action(nn_ctl_node)
     ld.add_action(priority_node)
     ld.add_action(s_motor_node)
+    ld.add_action(rosbag_record)
     
 
     return ld

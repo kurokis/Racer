@@ -15,6 +15,7 @@
   <exec_depend>future</exec_depend>
   <exec_depend>python-pygame</exec_depend>
   <exec_depend>subprocess</exec_depend>
+  <exec_depend>datetime</exec_depend>
 
   <exec_depend>numpy</exec_depend>
   <exec_depend>torch</exec_depend>

@@ -1,5 +1,6 @@
 build/
 install/
 log/
+bag/
 *.code-workspace
 **/__pycache__
