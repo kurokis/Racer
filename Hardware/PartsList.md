@@ -4,6 +4,7 @@
 ## RC Car Components
 
 | 部品          | 名前                                | 資料へのリンク                                                                    |
+|---------------|-------------------------------------|-----------------------------------------------------------------------------------|
 | シャシー        | TT-01D                            |                                                                            |
 | モーター        | TBLM-02S　10.5T                    | https://www.tamiya.com/cms/japan/download/rcmanual/54894.pdf               |
 | スピードコントローラー | TBLE-03S                          | https://d7z22c0gz59ng.cloudfront.net/cms/japan/download/rcmanual/45066.pdf |
