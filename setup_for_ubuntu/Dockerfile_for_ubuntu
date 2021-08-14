@@ -25,3 +25,5 @@ RUN python3 -m pip install pygame
 RUN python3 -m pip install numpy matplotlib scipy jupyterlab pandas pillow
 RUN python3 -m pip install torch torchvision torchaudio torchsummary
 RUN python3 -m pip install bokeh
+
+WORKDIR /app
