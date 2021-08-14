@@ -40,7 +40,6 @@ Step 3.ではbind mountでホスト側のRacerディレクトリをコンテナ�
 ソースコード等がコンテナ側から見える状態になっていることを確認する。
 
 ```bash
-cd /app
 ls
 ```
 
@@ -54,31 +53,18 @@ exit
 
 ## Racerパッケージのビルドと起動
 
-1. リポジトリのルート(README.mdがある場所)に移動
+1. (sim_racerを実行したい場合) sim_run.shを実行
 
 ```bash
-cd /app
+bash sim_run.sh
 ```
 
-2. colconでracerパッケージをビルド
+2. (racerを実行したい場合) run.shを実行
 
 ```bash
-colcon build --packages-select racer
+bash run.sh
 ```
 
-3. setup.bashをソースする（installフォルダはビルド後に作成される）
-
-```bash
-. install/setup.bash
-```
-
-4. launchファイルを使って必要なノードやgazeboをまとめて起動する
-
-```bash
-ros2 launch racer sim_racer.launch.py
-```
-
-手順2~4はスクリプトにまとめてある。sim_racerを実行したい場合は`bash sim_run.sh`、racerを実行したい場合は`bash run.sh`で代替できる。
 
 ## パッケージ構成
 
@@ -157,12 +143,14 @@ setup_for_windowsフォルダに[docker-ros2-desktop-vnc](https://github.com/Tir
 
 setup_for_windowsフォルダに[ros:foxy](https://hub.docker.com/_/ros)をベースにしたDockerfileを置いている。これを使うとUbuntuで簡単にROS2実行環境が構築できる。このコンテナを実行するとROS2、Gazebo、python、pip、pythonライブラリ(pygame等)がインストールされた状態でスタートする。
 
-1. Dockerをインストールする(方法はなんでもよいが[snapコマンド](https://snapcraft.io/install/docker/ubuntu)を使うと楽)
+1. Dockerをインストールする([snapコマンド](https://snapcraft.io/install/docker/ubuntu)を使う。```sudo snap install docker```)
 
-1. docker_build.shを実行(初回は5GB程度のファイルをダウンロードするため時間がかかる)
+1. Racerディレクトリに移動 ```cd Racer```
 
-1. docker_run.shを実行
+1. docker_build.shを実行(初回は5GB程度のファイルをダウンロードするため時間がかかる) ```bash setup_for_ubuntu/docker_build.sh```
 
+1. docker_run.shを実行 ```bash setup_for_ubuntu/docker_run.sh```
+ 
 ## 参考: Dockerを使わない場合のセットアップ方法
 
 ros2, colcon, gazeboをインストールしておく。
