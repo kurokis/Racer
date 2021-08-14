@@ -1,4 +1,4 @@
-FROM ros:foxy
+FROM ros:galactic
 
 # set environment variable to stop the following warning from appearing
 # when using apt-get in Dockerfile:
@@ -8,11 +8,11 @@ ENV DEBCONF_NOWARNINGS=yes
 # Gazebo
 # [How to install Gazebo](http://gazebosim.org/tutorials?tut=ros2_installing&cat=connect_ros)
 RUN apt-get update
-RUN apt install -y ros-foxy-gazebo-ros-pkgs
+RUN apt install -y ros-galactic-gazebo-ros-pkgs
 
 # rqt
 RUN apt update
-RUN apt install -y ~nros-foxy-rqt*
+RUN apt install -y ~nros-galactic-rqt*
 
 # Dockerコンテナ上でkillallを使えるようにする
 RUN apt install -y psmisc

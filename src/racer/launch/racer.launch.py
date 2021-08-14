@@ -6,6 +6,14 @@ from launch_ros.actions import Node
 from launch.substitutions import LaunchConfiguration
 import subprocess
 
+def is_new_ros_version():
+    out = subprocess.Popen(['ros2', 'wtf'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    stdout,stderr = out.communicate()
+    s = str(stdout)
+    if ("foxy" in s) or ("galactic" in s):
+        return True
+    else:
+        return False
 
 def generate_launch_description():
     # Error prevention: automatically stop gzserver (server process for gazebo)
@@ -13,6 +21,8 @@ def generate_launch_description():
     subprocess.run(["killall","-9","gzserver"])
 
     ld = LaunchDescription()
+
+    new_ros_version = is_new_ros_version()
 
     #use_sim_time = LaunchConfiguration('use_sim_time', default='True')
     #world_file_name = 'walls2.world'
@@ -41,62 +51,116 @@ def generate_launch_description():
     #    cmd=['rviz2','-d','./src/rviz_config.rviz'],
     # )
 
-    mode_node = Node(
-        package='racer',
-        node_executable='mode',
-    )
+    if new_ros_version:
+        mode_node = Node(
+            package='racer',
+            executable='mode',
+        )
+    else:
+        mode_node = Node(
+            package='racer',
+            node_executable='mode',
+        )
 
-    keyboard_node = Node(
-        package='racer',
-        node_executable='keyboard',
-        # open another terminal for keyboard control
-        prefix='xterm -e',
-        output='screen',
-    )
+    if new_ros_version:
+        keyboard_node = Node(
+            package='racer',
+            executable='keyboard',
+            # open another terminal for keyboard control
+            prefix='xterm -e',
+            output='screen',
+        )
+    else:
+        keyboard_node = Node(
+            package='racer',
+            node_executable='keyboard',
+            # open another terminal for keyboard control
+            prefix='xterm -e',
+            output='screen',
+        )
 
-    key_ctl_node = Node(
-        package='racer',
-        node_executable='key_ctl',
-    )
+    if new_ros_version:
+        key_ctl_node = Node(
+            package='racer',
+            executable='key_ctl',
+        )
+    else:
+        key_ctl_node = Node(
+            package='racer',
+            node_executable='key_ctl',
+        )
 
-    joystick_node = Node(
-        package='racer',
-        node_executable='joystick',
-    )
+    if new_ros_version:
+        joystick_node = Node(
+            package='racer',
+            executable='joystick',
+        )
+    else:
+        joystick_node = Node(
+            package='racer',
+            node_executable='joystick',
+        )
 
-    joy_ctl_node = Node(
-        package='racer',
-        node_executable='joy_ctl',
-    )
+    if new_ros_version:
+        joy_ctl_node = Node(
+            package='racer',
+            executable='joy_ctl',
+        )
+    else:
+        joy_ctl_node = Node(
+            package='racer',
+            node_executable='joy_ctl',
+        )
 
-    nn_ctl_node = Node(
-        package='racer',
-        node_executable='nn_ctl',
-        output='screen',  # print logger info
-    )
+    if new_ros_version:
+        nn_ctl_node = Node(
+            package='racer',
+            executable='nn_ctl',
+            output='screen',  # print logger info
+        )
+    else:
+        nn_ctl_node = Node(
+            package='racer',
+            node_executable='nn_ctl',
+            output='screen',  # print logger info
+        )
 
-    priority_node = Node(
-        package='racer',
-        node_executable='priority',
-    )
+    if new_ros_version:
+        priority_node = Node(
+            package='racer',
+            executable='priority',
+        )
+    else:
+        priority_node = Node(
+            package='racer',
+            node_executable='priority',
+        )
 
-    #s_motor_node = Node(
-    #    package='racer',
-    #    node_executable='s_motor',
-    #    output='screen',
-    #)
+    if new_ros_version:
+        r_motor_node = Node(
+            package='racer',
+            executable='r_motor',
+            output='screen',
+        )
+    else:
+        r_motor_node = Node(
+            package='racer',
+            node_executable='r_motor',
+            output='screen',
+        )
 
-    r_motor_node = Node(
-        package='racer',
-        node_executable='r_motor',
-        output='screen',
-    )
-
-    front_camera_node = Node(
-        package='racer',
-        node_executable='front_camera',
-        output='screen',
-    )
+    if new_ros_version:
+        front_camera_node = Node(
+            package='racer',
+            executable='front_camera',
+            output='screen',
+        )
+    else:
+        front_camera_node = Node(
+            package='racer',
+            node_executable='front_camera',
+            output='screen',
+        )
 
     # ld.add_action(gazebo)
     # ld.add_action(gzserver)
@@ -108,7 +172,6 @@ def generate_launch_description():
     ld.add_action(joy_ctl_node)
     ld.add_action(nn_ctl_node)
     ld.add_action(priority_node)
-    # ld.add_action(s_motor_node)
     ld.add_action(r_motor_node)
     ld.add_action(front_camera_node)
 
