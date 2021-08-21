@@ -1,0 +1,1048 @@
+<?xml version="1.0" ?>
+
+<sdf version="1.5">
+  <world name="default">
+  
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <!-- Left Outside straight -->
+    <include>
+      <name>l_out_straight_1</name>
+      <uri>model://6cans</uri>
+      <pose>0.033 1.512 0 0 0 1.57079633</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>l_out_straight_2</name>
+      <uri>model://6cans</uri>
+      <pose>0.033 1.908 0 0 0 1.57079633</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>l_out_straight_3</name>
+      <uri>model://6cans</uri>
+      <pose>0.033 2.304 0 0 0 1.57079633</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>l_out_straight_4</name>
+      <uri>model://6cans</uri>
+      <pose>0.033 2.700 0 0 0 1.57079633</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>l_out_straight_5</name>
+      <uri>model://6cans</uri>
+      <pose>0.033 3.096 0 0 0 1.57079633</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>l_out_straight_6</name>
+      <uri>model://6cans</uri>
+      <pose>0.033 3.492 0 0 0 1.57079633</pose>
+      <static>true</static>
+    </include>
+
+    <!-- Right Outside straight -->
+    <include>
+      <name>r_out_straight_1</name>
+      <uri>model://6cans</uri>
+      <pose>8.967 1.512 0 0 0 1.57079633</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>r_out_straight_2</name>
+      <uri>model://6cans</uri>
+      <pose>8.967 1.908 0 0 0 1.57079633</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>r_out_straight_3</name>
+      <uri>model://6cans</uri>
+      <pose>8.967 2.304 0 0 0 1.57079633</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>r_out_straight_4</name>
+      <uri>model://6cans</uri>
+      <pose>8.967 2.700 0 0 0 1.57079633</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>r_out_straight_5</name>
+      <uri>model://6cans</uri>
+      <pose>8.967 3.096 0 0 0 1.57079633</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>r_out_straight_6</name>
+      <uri>model://6cans</uri>
+      <pose>8.967 3.492 0 0 0 1.57079633</pose>
+      <static>true</static>
+    </include>
+
+    <!-- Top Outside straight -->
+    <include>
+      <name>t_out_straight_1</name>
+      <uri>model://6cans</uri>
+      <pose>4.332 5.367 0 0 0 0</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>t_out_straight_2</name>
+      <uri>model://6cans</uri>
+      <pose>4.728 5.367 0 0 0 0</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>t_out_straight_3</name>
+      <uri>model://6cans</uri>
+      <pose>5.124 5.367 0 0 0 0</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>t_out_straight_4</name>
+      <uri>model://6cans</uri>
+      <pose>5.520 5.367 0 0 0 0</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>t_out_straight_5</name>
+      <uri>model://6cans</uri>
+      <pose>5.916 5.367 0 0 0 0</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>t_out_straight_6</name>
+      <uri>model://6cans</uri>
+      <pose>6.312 5.367 0 0 0 0</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>t_out_straight_7</name>
+      <uri>model://6cans</uri>
+      <pose>6.708 5.367 0 0 0 0</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>t_out_straight_8</name>
+      <uri>model://6cans</uri>
+      <pose>7.104 5.367 0 0 0 0</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>t_out_straight_9</name>
+      <uri>model://1can</uri>
+      <pose>7.5 5.367 0 0 0 0</pose>
+      <static>true</static>
+    </include>
+
+    <!-- Bottom Outside straight -->
+    <include>
+      <name>b_out_straight_1</name>
+      <uri>model://6cans</uri>
+      <pose>1.530 0.033 0 0 0 0</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>b_out_straight_2</name>
+      <uri>model://6cans</uri>
+      <pose>1.926 0.033 0 0 0 0</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>b_out_straight_3</name>
+      <uri>model://6cans</uri>
+      <pose>2.322 0.033 0 0 0 0</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>b_out_straight_4</name>
+      <uri>model://6cans</uri>
+      <pose>2.718 0.033 0 0 0 0</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>b_out_straight_5</name>
+      <uri>model://6cans</uri>
+      <pose>3.114 0.033 0 0 0 0</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>b_out_straight_6</name>
+      <uri>model://6cans</uri>
+      <pose>3.510 0.033 0 0 0 0</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>b_out_straight_7</name>
+      <uri>model://6cans</uri>
+      <pose>3.906 0.033 0 0 0 0</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>b_out_straight_8</name>
+      <uri>model://6cans</uri>
+      <pose>4.302 0.033 0 0 0 0</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>b_out_straight_9</name>
+      <uri>model://6cans</uri>
+      <pose>4.698 0.033 0 0 0 0</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>b_out_straight_10</name>
+      <uri>model://6cans</uri>
+      <pose>5.094 0.033 0 0 0 0</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>b_out_straight_11</name>
+      <uri>model://6cans</uri>
+      <pose>5.490 0.033 0 0 0 0</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>b_out_straight_12</name>
+      <uri>model://6cans</uri>
+      <pose>5.886 0.033 0 0 0 0</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>b_out_straight_13</name>
+      <uri>model://6cans</uri>
+      <pose>6.282 0.033 0 0 0 0</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>b_out_straight_14</name>
+      <uri>model://6cans</uri>
+      <pose>6.678 0.033 0 0 0 0</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>b_out_straight_15</name>
+      <uri>model://6cans</uri>
+      <pose>7.074 0.033 0 0 0 0</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>b_out_straight_16</name>
+      <uri>model://1can</uri>
+      <pose>7.470 0.033 0 0 0 0</pose>
+      <static>true</static>
+    </include>
+
+    <!-- Left Inside straight -->
+    <include>
+      <name>l_in_straight_1</name>
+      <uri>model://6cans</uri>
+      <pose>1.500 3.100 0 0 0 1.57079633</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>l_in_straight_2</name>
+      <uri>model://6cans</uri>
+      <pose>1.500 3.496 0 0 0 1.57079633</pose>
+      <static>true</static>
+    </include>
+
+    <!-- Top Inside straight -->
+    <include>
+      <name>t_in_straight_1</name>
+      <uri>model://6cans</uri>
+      <pose>4.362 4.050 0 0 0 0</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>t_in_straight_2</name>
+      <uri>model://6cans</uri>
+      <pose>4.758 4.050 0 0 0 0</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>t_in_straight_3</name>
+      <uri>model://6cans</uri>
+      <pose>5.154 4.050 0 0 0 0</pose>
+      <static>true</static>
+    </include>
+
+    <!-- Middle Inside straight -->
+    <include>
+      <name>m_in_straight_1</name>
+      <uri>model://6cans</uri>
+      <pose>4.350 2.733 0 0 0 0</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>m_in_straight_2</name>
+      <uri>model://6cans</uri>
+      <pose>4.746 2.733 0 0 0 0</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>m_in_straight_3</name>
+      <uri>model://6cans</uri>
+      <pose>5.142 2.733 0 0 0 0</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>m_in_straight_4</name>
+      <uri>model://6cans</uri>
+      <pose>5.538 2.733 0 0 0 0</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>m_in_straight_5</name>
+      <uri>model://3cans</uri>
+      <pose>5.934 2.733 0 0 0 0</pose>
+      <static>true</static>
+    </include>
+
+    <!-- Bottom Inside straight -->
+    <include>
+      <name>b_in_straight_1</name>
+      <uri>model://6cans</uri>
+      <pose>2.650 1.350 0 0 0 0</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>b_in_straight_2</name>
+      <uri>model://6cans</uri>
+      <pose>3.046 1.350 0 0 0 0</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>b_in_straight_3</name>
+      <uri>model://6cans</uri>
+      <pose>3.442 1.350 0 0 0 0</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>b_in_straight_4</name>
+      <uri>model://6cans</uri>
+      <pose>3.838 1.350 0 0 0 0</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>b_in_straight_5</name>
+      <uri>model://6cans</uri>
+      <pose>4.234 1.350 0 0 0 0</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>b_in_straight_6</name>
+      <uri>model://6cans</uri>
+      <pose>4.630 1.350 0 0 0 0</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>b_in_straight_7</name>
+      <uri>model://6cans</uri>
+      <pose>5.026 1.350 0 0 0 0</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>b_in_straight_8</name>
+      <uri>model://6cans</uri>
+      <pose>5.422 1.350 0 0 0 0</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>b_in_straight_9</name>
+      <uri>model://3cans</uri>
+      <pose>5.818 1.350 0 0 0 0</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>b_in_straight_10</name>
+      <uri>model://1can</uri>
+      <pose>6.016 1.350 0 0 0 0</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>b_in_straight_11</name>
+      <uri>model://1can</uri>
+      <pose>6.082 1.350 0 0 0 0</pose>
+      <static>true</static>
+    </include>
+
+    <!-- Left Bottom Outside curve -->
+    <include>
+      <name>lb_out_curve_0</name>
+      <uri>model://1can</uri>
+      <pose>1.464 0.033 0 0 0 0</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>lb_out_curve_1</name>
+      <uri>model://3cans</uri>
+      <pose>1.464 0.033 0 0 0 3.0107</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>lb_out_curve_2</name>
+      <uri>model://3cans</uri>
+      <pose>1.2677 0.0588 0 0 0 2.8798</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>lb_out_curve_3</name>
+      <uri>model://3cans</uri>
+      <pose>1.0764 0.11 0 0 0 2.7489</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>lb_out_curve_4</name>
+      <uri>model://3cans</uri>
+      <pose>0.8935 0.1858 0 0 0 2.6180</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>lb_out_curve_5</name>
+      <uri>model://3cans</uri>
+      <pose>0.722 0.2848 0 0 0 2.4871</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>lb_out_curve_6</name>
+      <uri>model://3cans</uri>
+      <pose>0.5649 0.4053 0 0 0 2.3562</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>lb_out_curve_7</name>
+      <uri>model://3cans</uri>
+      <pose>0.4249 0.5453 0 0 0 2.2253</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>lb_out_curve_8</name>
+      <uri>model://3cans</uri>
+      <pose>0.3044 0.7024 0 0 0 2.0944</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>lb_out_curve_9</name>
+      <uri>model://3cans</uri>
+      <pose>0.2054 0.8739 0 0 0 1.9635</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>lb_out_curve_10</name>
+      <uri>model://3cans</uri>
+      <pose>0.1296 1.0568 0 0 0 1.8326</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>lb_out_curve_11</name>
+      <uri>model://3cans</uri>
+      <pose>0.0784 1.2481 0 0 0 1.7017</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>lb_out_curve_12</name>
+      <uri>model://1can</uri>
+      <pose>0.0526 1.4444 0 0 0 1.85</pose>
+      <static>true</static>
+    </include>
+    <!--<include>
+      <name>lb_out_curve_12</name>
+      <uri>model://1can</uri>
+      <pose>0.033 1.446 0 0 0 1.5708</pose>
+      <static>true</static>
+    </include>-->
+
+    <!-- Left Top Outside curve -->
+    <include>
+      <name>lt_out_curve_1</name>
+      <uri>model://3cans</uri>
+      <pose>0.0330 3.9000 0 0 0 1.4399</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>lt_out_curve_2</name>
+      <uri>model://3cans</uri>
+      <pose>0.0588 4.0963 0 0 0 1.3090</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>lt_out_curve_3</name>
+      <uri>model://3cans</uri>
+      <pose>0.1101 4.2876 0 0 0 1.1781</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>lt_out_curve_4</name>
+      <uri>model://3cans</uri>
+      <pose>0.1859 4.4705 0 0 0 1.0472</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>lt_out_curve_5</name>
+      <uri>model://3cans</uri>
+      <pose>0.2849 4.6420 0 0 0 0.9163</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>lt_out_curve_6</name>
+      <uri>model://3cans</uri>
+      <pose>0.4054 4.7990 0 0 0 0.7854</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>lt_out_curve_7</name>
+      <uri>model://3cans</uri>
+      <pose>0.5454 4.9391 0 0 0 0.6545</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>lt_out_curve_8</name>
+      <uri>model://3cans</uri>
+      <pose>0.7025 5.0596 0 0 0 0.5236</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>lt_out_curve_9</name>
+      <uri>model://3cans</uri>
+      <pose>0.8740 5.1586 0 0 0 0.3927</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>lt_out_curve_10</name>
+      <uri>model://3cans</uri>
+      <pose>1.0569 5.2344 0 0 0 0.2618</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>lt_out_curve_11</name>
+      <uri>model://3cans</uri>
+      <pose>1.2481 5.2856 0 0 0 0.1309</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>lt_out_curve_12</name>
+      <uri>model://3cans</uri>
+      <pose>1.4444 5.3114 0 0 0 0.0000</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>lt_out_curve_13</name>
+      <uri>model://3cans</uri>
+      <pose>1.6424 5.3114 0 0 0 -0.1309</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>lt_out_curve_14</name>
+      <uri>model://3cans</uri>
+      <pose>1.8388 5.2856 0 0 0 -0.2618</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>lt_out_curve_15</name>
+      <uri>model://3cans</uri>
+      <pose>2.0300 5.2344 0 0 0 -0.3927</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>lt_out_curve_16</name>
+      <uri>model://3cans</uri>
+      <pose>2.2129 5.1586 0 0 0 -0.5236</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>lt_out_curve_17</name>
+      <uri>model://3cans</uri>
+      <pose>2.3844 5.0596 0 0 0 -0.6545</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>lt_out_curve_18</name>
+      <uri>model://3cans</uri>
+      <pose>2.5415 4.9391 0 0 0 -0.7854</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>lt_out_curve_19</name>
+      <uri>model://3cans</uri>
+      <pose>2.6815 4.7990 0 0 0 -0.9163</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>lt_out_curve_20</name>
+      <uri>model://3cans</uri>
+      <pose>2.8020 4.6420 0 0 0 -1.0472</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>lt_out_curve_21</name>
+      <uri>model://3cans</uri>
+      <pose>2.9010 4.4705 0 0 0 -1.1781</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>lt_out_curve_22</name>
+      <uri>model://3cans</uri>
+      <pose>2.9768 4.2876 0 0 0 -1.3090</pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>lt_out_curve_23</name>
+      <uri>model://3cans</uri>
+      <pose>3.0281 4.0963 0 0 0 -1.325</pose>
+      <static>true</static>
+    </include>
+    
+
+    <!-- Right Bottom Outside curve -->
+    <include>
+      <name>rb_out_curve_1</name>
+      <uri>model://3cans</uri>
+      <pose> 7.5360 0.0330 0 0 0 0.1309 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>rb_out_curve_2</name>
+      <uri>model://3cans</uri>
+      <pose> 7.7323 0.0588 0 0 0 0.2618 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>rb_out_curve_3</name>
+      <uri>model://3cans</uri>
+      <pose> 7.9236 0.1101 0 0 0 0.3927 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>rb_out_curve_4</name>
+      <uri>model://3cans</uri>
+      <pose> 8.1065 0.1859 0 0 0 0.5236 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>rb_out_curve_5</name>
+      <uri>model://3cans</uri>
+      <pose> 8.2780 0.2849 0 0 0 0.6545 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>rb_out_curve_6</name>
+      <uri>model://3cans</uri>
+      <pose> 8.4350 0.4054 0 0 0 0.7854 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>rb_out_curve_7</name>
+      <uri>model://3cans</uri>
+      <pose> 8.5751 0.5454 0 0 0 0.9163 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>rb_out_curve_8</name>
+      <uri>model://3cans</uri>
+      <pose> 8.6956 0.7025 0 0 0 1.0472 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>rb_out_curve_9</name>
+      <uri>model://3cans</uri>
+      <pose> 8.7946 0.8740 0 0 0 1.1781 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>rb_out_curve_10</name>
+      <uri>model://3cans</uri>
+      <pose> 8.8704 1.0569 0 0 0 1.3090 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>rb_out_curve_11</name>
+      <uri>model://3cans</uri>
+      <pose> 8.9216 1.2481 0 0 0 1.4399 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>rb_out_curve_12</name>
+      <uri>model://1can</uri>
+      <pose> 8.9474 1.4444 0 0 0 1.320800 </pose>
+      <static>true</static>
+    </include>
+
+    <!-- Right Top Outside curve -->
+    <include>
+      <name>rt_out_curve_1</name>
+      <uri>model://3cans</uri>
+      <pose> 7.5660 5.3670 0 0 0 -0.1309 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>rt_out_curve_2</name>
+      <uri>model://3cans</uri>
+      <pose> 7.7623 5.3412 0 0 0 -0.2618 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>rt_out_curve_3</name>
+      <uri>model://3cans</uri>
+      <pose> 7.9536 5.2899 0 0 0 -0.3927 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>rt_out_curve_4</name>
+      <uri>model://3cans</uri>
+      <pose> 8.1365 5.2141 0 0 0 -0.5236 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>rt_out_curve_5</name>
+      <uri>model://3cans</uri>
+      <pose> 8.3080 5.1151 0 0 0 -0.6545 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>rt_out_curve_6</name>
+      <uri>model://3cans</uri>
+      <pose> 8.4650 4.9946 0 0 0 -0.7854 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>rt_out_curve_7</name>
+      <uri>model://3cans</uri>
+      <pose> 8.6051 4.8546 0 0 0 -0.9163 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>rt_out_curve_8</name>
+      <uri>model://3cans</uri>
+      <pose> 8.7256 4.6975 0 0 0 -1.0472 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>rt_out_curve_9</name>
+      <uri>model://3cans</uri>
+      <pose> 8.8246 4.5260 0 0 0 -1.1781 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>rt_out_curve_10</name>
+      <uri>model://3cans</uri>
+      <pose> 8.9004 4.3431 0 0 0 -1.3090 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>rt_out_curve_11</name>
+      <uri>model://3cans</uri>
+      <pose> 8.9516 4.1519 0 0 0 -1.4399 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>rt_out_curve_12</name>
+      <uri>model://1can</uri>
+      <pose> 8.9774 3.9556 0 0 0 -1.720801 </pose>
+      <static>true</static>
+    </include>
+
+    <!-- Left Bottom Inside curve -->
+    <include>
+      <name>lb_in_curve_1</name>
+      <uri>model://3cans</uri>
+      <pose> 1.5000 2.4340 0 0 0 -1.3963 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>lb_in_curve_2</name>
+      <uri>model://3cans</uri>
+      <pose> 1.5344 2.2390 0 0 0 -1.2217 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>lb_in_curve_3</name>
+      <uri>model://3cans</uri>
+      <pose> 1.6021 2.0529 0 0 0 -1.0472 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>lb_in_curve_4</name>
+      <uri>model://3cans</uri>
+      <pose> 1.7011 1.8815 0 0 0 -0.8727 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>lb_in_curve_5</name>
+      <uri>model://3cans</uri>
+      <pose> 1.8284 1.7298 0 0 0 -0.6981 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>lb_in_curve_6</name>
+      <uri>model://3cans</uri>
+      <pose> 1.9801 1.6025 0 0 0 -0.5236 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>lb_in_curve_7</name>
+      <uri>model://3cans</uri>
+      <pose> 2.1515 1.5035 0 0 0 -0.3491 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>lb_in_curve_8</name>
+      <uri>model://5cans</uri>
+      <pose> 2.3376 1.4358 0 0 0 -0.274499 </pose>
+      <static>true</static>
+    </include>
+
+    <!-- Right Inside curve -->
+    <include>
+      <name>r_in_curve_1</name>
+      <uri>model://3cans</uri>
+      <pose> 6.1500 1.3500 0 0 0 0.1496 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>r_in_curve_2</name>
+      <uri>model://3cans</uri>
+      <pose> 6.3458 1.3795 0 0 0 0.2992 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>r_in_curve_3</name>
+      <uri>model://3cans</uri>
+      <pose> 6.5350 1.4379 0 0 0 0.4488 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>r_in_curve_4</name>
+      <uri>model://3cans</uri>
+      <pose> 6.7134 1.5238 0 0 0 0.5984 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>r_in_curve_5</name>
+      <uri>model://3cans</uri>
+      <pose> 6.8770 1.6353 0 0 0 0.7480 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>r_in_curve_6</name>
+      <uri>model://3cans</uri>
+      <pose> 7.0221 1.7700 0 0 0 0.8976 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>r_in_curve_7</name>
+      <uri>model://3cans</uri>
+      <pose> 7.1456 1.9248 0 0 0 1.0472 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>r_in_curve_8</name>
+      <uri>model://3cans</uri>
+      <pose> 7.2446 2.0963 0 0 0 1.1968 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>r_in_curve_9</name>
+      <uri>model://3cans</uri>
+      <pose> 7.3169 2.2806 0 0 0 1.3464 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>r_in_curve_10</name>
+      <uri>model://3cans</uri>
+      <pose> 7.3610 2.4736 0 0 0 1.4960 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>r_in_curve_11</name>
+      <uri>model://3cans</uri>
+      <pose> 7.3758 2.6711 0 0 0 1.6456 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>r_in_curve_12</name>
+      <uri>model://3cans</uri>
+      <pose> 7.3610 2.8685 0 0 0 1.7952 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>r_in_curve_13</name>
+      <uri>model://3cans</uri>
+      <pose> 7.3169 3.0615 0 0 0 1.9448 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>r_in_curve_14</name>
+      <uri>model://3cans</uri>
+      <pose> 7.2446 3.2459 0 0 0 2.0944 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>r_in_curve_15</name>
+      <uri>model://3cans</uri>
+      <pose> 7.1456 3.4173 0 0 0 2.2440 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>r_in_curve_16</name>
+      <uri>model://3cans</uri>
+      <pose> 7.0221 3.5721 0 0 0 2.3936 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>r_in_curve_17</name>
+      <uri>model://3cans</uri>
+      <pose> 6.8770 3.7068 0 0 0 2.5432 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>r_in_curve_18</name>
+      <uri>model://3cans</uri>
+      <pose> 6.7134 3.8183 0 0 0 2.6928 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>r_in_curve_19</name>
+      <uri>model://3cans</uri>
+      <pose> 6.5350 3.9043 0 0 0 2.8424 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>r_in_curve_20</name>
+      <uri>model://3cans</uri>
+      <pose> 6.3458 3.9626 0 0 0 2.9920 </pose>
+      <static>true</static>
+    </include>
+
+    <!-- Middle Top Outside curve -->
+    <include>
+      <name>m_out_curve_1</name>
+      <uri>model://3cans</uri>
+      <pose> 4.3500 2.7330 0 0 0 2.9920 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>m_out_curve_2</name>
+      <uri>model://3cans</uri>
+      <pose> 4.1542 2.7625 0 0 0 2.8424 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>m_out_curve_3</name>
+      <uri>model://3cans</uri>
+      <pose> 3.9650 2.8209 0 0 0 2.6928 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>m_out_curve_4</name>
+      <uri>model://3cans</uri>
+      <pose> 3.7866 2.9068 0 0 0 2.5432 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>m_out_curve_5</name>
+      <uri>model://3cans</uri>
+      <pose> 3.6230 3.0183 0 0 0 2.3936 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>m_out_curve_6</name>
+      <uri>model://3cans</uri>
+      <pose> 3.4779 3.1530 0 0 0 2.2440 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>m_out_curve_7</name>
+      <uri>model://3cans</uri>
+      <pose> 3.3544 3.3078 0 0 0 2.0944 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>m_out_curve_8</name>
+      <uri>model://3cans</uri>
+      <pose> 3.2554 3.4793 0 0 0 1.9448 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>m_out_curve_9</name>
+      <uri>model://3cans</uri>
+      <pose> 3.1831 3.6636 0 0 0 1.7952 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>m_out_curve_10</name>
+      <uri>model://3cans</uri>
+      <pose> 3.1390 3.8566 0 0 0 1.6456 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>m_out_curve_11</name>
+      <uri>model://3cans</uri>
+      <pose> 3.1242 4.0541 0 0 0 1.4960 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>m_out_curve_12</name>
+      <uri>model://3cans</uri>
+      <pose> 3.1390 4.2515 0 0 0 1.3464 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>m_out_curve_13</name>
+      <uri>model://3cans</uri>
+      <pose> 3.1831 4.4445 0 0 0 1.1968 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>m_out_curve_14</name>
+      <uri>model://3cans</uri>
+      <pose> 3.2554 4.6289 0 0 0 1.0472 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>m_out_curve_15</name>
+      <uri>model://3cans</uri>
+      <pose> 3.3544 4.8003 0 0 0 0.8976 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>m_out_curve_16</name>
+      <uri>model://3cans</uri>
+      <pose> 3.4779 4.9551 0 0 0 0.7480 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>m_out_curve_17</name>
+      <uri>model://3cans</uri>
+      <pose> 3.6230 5.0898 0 0 0 0.5984 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>m_out_curve_18</name>
+      <uri>model://3cans</uri>
+      <pose> 3.7866 5.2013 0 0 0 0.4488 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>m_out_curve_19</name>
+      <uri>model://3cans</uri>
+      <pose> 3.9650 5.2873 0 0 0 0.2992 </pose>
+      <static>true</static>
+    </include>
+    <include>
+      <name>m_out_curve_20</name>
+      <uri>model://3cans</uri>
+      <pose> 4.1542 5.3456 0 0 0 0.1496 </pose>
+      <static>true</static>
+    </include>
+
+  </world>
+</sdf>
