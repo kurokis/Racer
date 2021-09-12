@@ -18,7 +18,13 @@ setup(
         
         # Path to the world file
         (os.path.join('share', package_name,'worlds/'), glob('./worlds/*')),
-        
+
+        # Path to can models
+        (os.path.join('share', package_name,'models/1can/'), glob('./models/1can/*.*')),
+        (os.path.join('share', package_name,'models/3cans/'), glob('./models/3cans/*.*')),
+        (os.path.join('share', package_name,'models/5cans/'), glob('./models/5cans/*.*')),
+        (os.path.join('share', package_name,'models/6cans/'), glob('./models/6cans/*.*')),
+
         # Path to the prius sdf file
         (os.path.join('share', package_name,'models/prius/'), glob('./models/prius/*.*')),
         (os.path.join('share', package_name,'models/prius/meshes/'), glob('./models/prius/meshes/*.*')),

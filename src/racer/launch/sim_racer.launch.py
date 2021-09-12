@@ -24,7 +24,7 @@ def generate_launch_description():
     ld = LaunchDescription()
 
     use_sim_time = LaunchConfiguration('use_sim_time', default='True')
-    world_file_name = 'walls2.world'
+    world_file_name = 'gazebo_testcourse.world'
     pkg_dir = get_package_share_directory('racer')
 
     os.environ["GAZEBO_MODEL_PATH"] = os.path.join(pkg_dir, 'models')
