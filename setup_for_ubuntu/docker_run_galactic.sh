@@ -20,4 +20,4 @@ sudo docker run --name racer --rm -it --privileged \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
     --device=/dev/input/js0:/dev/input/js0 \
     --device=/dev/snd:/dev/snd \
-    ubunturos
+    ubunturosgalactic

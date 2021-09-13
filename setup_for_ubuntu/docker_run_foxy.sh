@@ -12,7 +12,7 @@ cd ..
 # - ジョイスティック対応(--privileged, --device)
 # - イメージ名ubunturos(docker_build.shで指定済み)
 xhost +
-sudo docker run --gpus all --name racer --rm -it --privileged \
+sudo docker run --name racer --rm -it --privileged \
     --mount type=bind,source=$(pwd),target=/app \
     --shm-size=512m \
     --net=host \

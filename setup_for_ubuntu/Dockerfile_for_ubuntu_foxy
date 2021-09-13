@@ -1,0 +1,29 @@
+FROM ros:foxy
+
+# set environment variable to stop the following warning from appearing
+# when using apt-get in Dockerfile:
+# "debconf: delaying package configuration, since apt-utils is not installed"
+ENV DEBCONF_NOWARNINGS=yes
+
+# Gazebo
+# [How to install Gazebo](http://gazebosim.org/tutorials?tut=ros2_installing&cat=connect_ros)
+RUN apt-get update
+RUN apt install -y ros-foxy-gazebo-ros-pkgs
+
+# rqt
+RUN apt update
+RUN apt install -y ~nros-foxy-rqt*
+
+# Dockerコンテナ上でkillallを使えるようにする
+RUN apt install -y psmisc
+
+# Install xterm, pip, pygame, numpy, pytorch
+RUN apt-get update
+RUN apt-get install -y xterm
+RUN apt-get install -y python3-pip
+RUN python3 -m pip install pygame
+RUN python3 -m pip install numpy matplotlib scipy jupyterlab pandas pillow
+RUN python3 -m pip install torch torchvision torchaudio torchsummary
+RUN python3 -m pip install bokeh
+
+WORKDIR /app
