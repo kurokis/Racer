@@ -2,7 +2,7 @@
 
 自動運転ミニカー
 
-## 環境構築
+## How-to: Jetson Nanoでracerを実行する
 
 ### Step 1. Jetson NanoにJetPackを入れる
 
@@ -34,13 +34,22 @@ bash setup_for_jetson/docker_run.sh
 
 [参考](https://github.com/dusty-nv/jetson-containers/issues/36)
 
-### Step 4. マウント状態の確認
+カレントディレクトリが/appになれば正しく起動できている。
 
-Step 3.ではbind mountでホスト側のRacerディレクトリをコンテナ側の/appディレクトリと紐付けている。
-ソースコード等がコンテナ側から見える状態になっていることを確認する。
+![](docs/setup_for_jetson_docker_run.png)
+
+### Step 4. Racerパッケージのビルドと起動
+
+(option A) 本番環境(rosbag recordなし)で実行したい場合、run.shを実行
 
 ```bash
-ls
+bash run.sh
+```
+
+(option B) 記録用環境(rosbag recordあり)で実行したい場合、run_record.shを実行
+
+```bash
+bash run_record.sh
 ```
 
 ### Step 5. Docker imageの終了
@@ -51,19 +60,59 @@ ls
 exit
 ```
 
-## Racerパッケージのビルドと起動
+![](docs/docker_exit.png)
 
-1. (sim_racerを実行したい場合) sim_run.shを実行
+## How-to: 車両を操作する
 
-```bash
-bash sim_run.sh
+### X-input対応のコントローラを使用する場合
+
+![](docs/controller.png)
+
+### キーボードを使用する場合
+
+キーボード操作をするためにはxtermの画面をアクティブにする必要がある
+
+![](docs/xterm.png)
+
+キー配置は以下
+
+![](docs/keyboard.png)
+
+## How-to: Ubuntu上でシミュレータを起動する
+
+setup_for_windowsフォルダに[ros:foxy](https://hub.docker.com/_/ros)をベースにしたDockerfileを置いている。これを使うとUbuntuで簡単にROS2実行環境が構築できる。このコンテナを実行するとROS2、Gazebo、python、pip、pythonライブラリ(pygame等)がインストールされた状態でスタートする。
+
+1. Dockerをインストールする([snapコマンド](https://snapcraft.io/install/docker/ubuntu)を使う。```sudo snap install docker```)
+
+1. Racerディレクトリに移動 ```cd Racer```
+
+1. docker_build.shを実行(初回は5GB程度のファイルをダウンロードするため時間がかかる) ```bash setup_for_ubuntu/docker_build_foxy.sh```
+
+1. docker_run.shを実行 ```bash setup_for_ubuntu/docker_run_foxy.sh```
+
+1. docker環境内でsim_run.shを実行```bash sim_run.sh```
+
+## How-to: 走行データからモデルを学習させる
+
+1. Ubuntuが入ったPCで学習専用のdockerイメージをビルドする
+
+```sh
+cd Racer
+bash setup_for_ubuntu/docker_build_galactic.sh
 ```
 
-2. (racerを実行したい場合) run.shを実行
+2. 学習させたい走行ログをbagフォルダから探して、src/train/bag2labels/input_dataにフォルダごとコピーする
 
-```bash
-bash run.sh
+3. 学習パイプラインのスクリプトを実行
+
+```sh
+cd src/train
+bash run_training_pipeline.sh
 ```
+
+4. 学習済みのモデルがsrc/train/train/output_dataに作成されたことを確認
+
+5. 学習済みモデルをsrcracer/params/にコピーする
 
 
 ## パッケージ構成
@@ -82,6 +131,12 @@ src/
     package.xml パッケージ概要、依存ライブラリを記述
     setup.cfg 略
     setup.py ビルド設定を記述
+  train/
+    bag2labels/
+      bag2labels.py rosbagのログから学習用データ(jpg画像&その時の制御状態を記述したcsv)を作成
+    train/
+      train.py 学習用データを使ってモデルを学習し、学習済みモデルmodel.ptを作成
+    run_training_pipeline.sh bag2labelsとtrainを順番に実行するスクリプト
 setup_for_jetson/ jetson用のdockerfile、docker buildスクリプト、docker runスクリプト
 setup_for_ubuntu/ jetson用のdockerfile、docker buildスクリプト、docker runスクリプト
 setup_for_windows/ jetson用のdockerfile、docker buildスクリプト、docker runスクリプト
@@ -121,35 +176,8 @@ Topics:
 
 ![](docs/camera_image.png)
 
-## Windows上で実行する方法
 
-setup_for_windowsフォルダに[docker-ros2-desktop-vnc](https://github.com/Tiryoh/docker-ros2-desktop-vnc)をベースにしたDockerfileを置いている。これを使うとWindowsで簡単にROS2実行環境が構築できる。このコンテナを実行するとROS2、Gazebo、VNC、Visual Studio Code (ターミナルから`code`で実行)、python、pip、pythonライブラリ(pygame等)がインストールされた状態でスタートする。
 
-1. Docker for Windowsをインストールする
-
-1. docker_build.batを実行(初回は5GB程度のファイルをダウンロードするため時間がかかる)
-
-1. docker_run.batを実行
-
-1. Webブラウザを起動し、http://127.0.0.1:6080/ (またはlocalhost:6080)にアクセスする
-
-1. VNC画面が現れることを確認する
-
-![](docs/vnc_screen.jpg)
-
-注意：同じDockerイメージがすでに実行中だと、ポートが競合するためdocker_run.batの実行が失敗する。
-
-## Ubuntu上で実行する方法
-
-setup_for_windowsフォルダに[ros:foxy](https://hub.docker.com/_/ros)をベースにしたDockerfileを置いている。これを使うとUbuntuで簡単にROS2実行環境が構築できる。このコンテナを実行するとROS2、Gazebo、python、pip、pythonライブラリ(pygame等)がインストールされた状態でスタートする。
-
-1. Dockerをインストールする([snapコマンド](https://snapcraft.io/install/docker/ubuntu)を使う。```sudo snap install docker```)
-
-1. Racerディレクトリに移動 ```cd Racer```
-
-1. docker_build.shを実行(初回は5GB程度のファイルをダウンロードするため時間がかかる) ```bash setup_for_ubuntu/docker_build.sh```
-
-1. docker_run.shを実行 ```bash setup_for_ubuntu/docker_run.sh```
  
 ## 参考: Dockerを使わない場合のセットアップ方法
 
