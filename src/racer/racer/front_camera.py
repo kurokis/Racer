@@ -10,7 +10,8 @@ class FrontCamera(Node):
     def __init__(self):
         super().__init__('front_camera')
         self.publisher_ = self.create_publisher(Image, 'front_camera_image', 10)
-        timer_period = 0.01 # seconds
+        #self.publisher_ = self.create_publisher(Image, 'cam/camera/image_raw', 10)
+        timer_period = 0.03 # seconds
         self.i = 0
         self.im_list = []
         self.bridge = CvBridge()
@@ -23,13 +24,13 @@ class FrontCamera(Node):
         isCaptured,img=self.cap.read()
         if not isCaptured:
             return False
-        self.publisher_.publish(self.bridge.cv2_to_imgmsg(np.array(img), "bgr8"))
+        self.publisher_.publish(self.bridge.cv2_to_imgmsg(np.array(img), "rgb8"))
         #self.get_logger().info('Publishing an image')
         return True
 
     def gstreamer_pipeline(self,
-        capture_width=320, capture_height=240,
-        display_width=320, display_height=240,
+        capture_width=160, capture_height=120,
+        display_width=160, display_height=120,
         framerate=30, exposure_time_min= 1,exposure_time_max=30, # ms
         flip_method=0):
 

@@ -161,6 +161,9 @@ def generate_launch_description():
             package='racer',
             node_executable='front_camera',
             output='screen',
+            # remap "front_camera_image" to "/cam/camera/image_raw"
+            # in order to inject camera image into the neural controller
+            remappings=[('front_camera_image','/cam/camera/image_raw')], 
         )
 
     os.makedirs("bag", exist_ok=True)
