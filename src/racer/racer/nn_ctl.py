@@ -91,7 +91,8 @@ class NeuralController(Node):
         im = np.frombuffer(msg.data, dtype=np.uint8).reshape(msg.height, msg.width, -1)
         x = torch.from_numpy(im.astype(np.float32)).clone().to(self.device)
 
-        # crop the image: 160x90 => 160x60
+        # crop the image: 320x180 => 160x90 => 160x60
+        x = x[::2,::2,:] # height,width,channel
         x = x[15:75,:,:] # height,width,channel
 
         # (h, w, c) to (c, w, h)
