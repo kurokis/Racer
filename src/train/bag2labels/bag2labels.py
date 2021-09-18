@@ -62,10 +62,12 @@ def sync_ts_and_images(t_ts, y_ts, t_im, y_im):
     # t_im: imageのタイムスタンプ配列(ナノ秒)
     # y_im: image(np.array)の配列
 
-    dt = 1 # seconds
+    dt = 0.5 # seconds
 
-    t_start = max(t_ts[0], t_im[0])
-    t_end = min(t_ts[-1], t_im[-1])
+    clip_before = 10 # seconds
+    clip_after = 10 # seconds
+    t_start = max(t_ts[0], t_im[0]) + clip_before*10**9
+    t_end = min(t_ts[-1], t_im[-1]) - clip_before*10**9
     
     n = int((t_end-t_start)/10**9 / dt)
     n = max(n-1, 0) # subtract 1, but keep it non-negative
@@ -110,10 +112,11 @@ if __name__ == "__main__":
         throttle = s[1][0]
         steer = s[1][1]
         image = s[2]
-        filename = str(s[0])+".jpg"
+        filename = str(int(s[0]))+".jpg"
         # write labels
         with open(output_dir+"/labels.csv", "a") as f:
-            f.write("{},{},{}\n".format(filename,throttle,steer))
+            # throttle, steerは100で割り-1から1の間に正規化する
+            f.write("{},{},{}\n".format(filename,throttle/100,steer/100))
         # write image
         pil_img = Image.fromarray(image)
         pil_img.save(output_dir+"/"+filename)

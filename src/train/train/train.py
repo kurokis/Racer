@@ -19,8 +19,10 @@ def train_model(model, n_epochs):
     train_size = int(len(dataset) * 0.8)
     val_size = n_samples - train_size
     train_dataset, val_dataset = torch.utils.data.random_split(dataset, [train_size, val_size])
+    print("Size of training dataset:",len(train_dataset))
+    print("Size of validation dataset:",len(val_dataset))
     n_workers = multiprocessing.cpu_count()
-    trainloader = torch.utils.data.DataLoader(train_dataset, batch_size = 1, shuffle = True, num_workers = n_workers)
+    trainloader = torch.utils.data.DataLoader(train_dataset, batch_size = 8, shuffle = True, num_workers = n_workers)
 
     for epoch in range(n_epochs): # loop over the dataset multiple times
         running_loss = 0.0
@@ -33,6 +35,7 @@ def train_model(model, n_epochs):
 
             # forward + backward + optimize
             outputs = model(inputs)
+            #print(outputs)
             loss = criterion(outputs, labels)
             loss.backward()
             optimizer.step()
