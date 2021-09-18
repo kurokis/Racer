@@ -80,6 +80,7 @@ class NeuralController(Node):
         data = [int(100*self.throttle), int(100*self.steer)]
         msg = Int8MultiArray(data=data)
         self.pub.publish(msg)
+        self.get_logger().info("NN node output: {}".format(data))
     
     def predict_neural(self):
         if self.image_msg is None:
@@ -106,9 +107,9 @@ class NeuralController(Node):
 
         self.get_logger().info("Raw model output: {}".format(y_numpy))
         throttle = y_numpy[0]
-        throttle = int(min(1, max(0, throttle)))
+        throttle = float(min(1, max(0, throttle)))
         steer = y_numpy[1]
-        steer = int(min(1, max(-1, throttle)))
+        steer = float(min(1, max(-1, steer)))
         
         self.throttle = throttle
         self.steer = steer
