@@ -1,5 +1,6 @@
 import multiprocessing
 from pathlib import Path
+import os
 import torch
 from torch import nn
 import torch.optim as optim
@@ -11,7 +12,8 @@ def train_model(model, n_epochs):
     criterion = nn.MSELoss()
     optimizer = optim.SGD(model.parameters(), lr=0.001, momentum=0.9)
 
-    dataset = MyDataset("input_data","input_data/labels.csv")
+    parent_dir = os.path.dirname(os.path.abspath(__file__))
+    dataset = MyDataset(parent_dir+"/input_data",parent_dir+"/input_data/labels.csv")
     n_samples = len(dataset) 
     train_size = int(len(dataset) * 0.8)
     val_size = n_samples - train_size
@@ -57,7 +59,8 @@ if __name__=="__main__":
     model = train_model(model, n_epochs)
 
     # save the trained model
-    Path("output_data").mkdir(exist_ok=True)
-    save_path = "output_data/model.pt"
+    parent_dir = os.path.dirname(os.path.abspath(__file__))
+    Path(parent_dir+"/output_data").mkdir(exist_ok=True)
+    save_path = parent_dir+"/output_data/model.pt"
     torch.save(model.to("cpu").state_dict(), save_path) 
 
