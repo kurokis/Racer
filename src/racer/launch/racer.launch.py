@@ -185,6 +185,6 @@ def generate_launch_description():
     ld.add_action(priority_node)
     ld.add_action(r_motor_node)
     ld.add_action(front_camera_node)
-    ld.add_action(rosbag_record)
+    #ld.add_action(rosbag_record)
 
     return ld
