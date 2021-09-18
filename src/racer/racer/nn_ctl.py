@@ -12,7 +12,7 @@ class NeuralNetwork(nn.Module):
     def __init__(self):
         super(NeuralNetwork, self).__init__()
         self.W = 160
-        self.H = 120
+        self.H = 60
         self.C = 3
         self.flatten = nn.Flatten()
         self.conv_relu_stack = nn.Sequential(
@@ -27,7 +27,7 @@ class NeuralNetwork(nn.Module):
             nn.Conv2d(in_channels=64, out_channels=64, kernel_size=3, stride=2, padding=1),
             nn.ReLU(),
             nn.Flatten(),
-            nn.Linear(1280, 30),
+            nn.Linear(640, 30),
             nn.ReLU(),
             nn.Linear(30, 2),
         )
@@ -90,6 +90,10 @@ class NeuralController(Node):
         msg = self.image_msg
         im = np.frombuffer(msg.data, dtype=np.uint8).reshape(msg.height, msg.width, -1)
         x = torch.from_numpy(im.astype(np.float32)).clone().to(self.device)
+
+        # crop the image: 320x180 => 160x90 => 160x60
+        x = x[::2,::2,:] # height,width,channel
+        x = x[15:75,:,:] # height,width,channel
 
         # (h, w, c) to (c, w, h)
         x = x.permute(2, 1, 0)

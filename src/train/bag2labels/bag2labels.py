@@ -48,8 +48,9 @@ def get_camera_messages(parser):
     images = []
     for message in im_messages:
         timestamp = message[0]
-        w,h,c = 160,120,3
+        w,h,c = 160,90,3
         image = np.array(message[1].data).reshape(h,w,c)
+        image = image[15:75,:,:] # crop the image to 160x60x3
         t.append(timestamp)
         images.append(image)
         #pil_img = Image.fromarray(image)
@@ -87,7 +88,7 @@ def sync_ts_and_images(t_ts, y_ts, t_im, y_im):
         t += dt*10**9
 
     return synchronized
-        
+
 if __name__ == "__main__":
     bag_files = glob.glob(os.path.dirname(os.path.abspath(__file__))+"/input_data/**/*.db3")
     bag_file = bag_files[0]
@@ -113,6 +114,18 @@ if __name__ == "__main__":
         steer = s[1][1]
         image = s[2]
         filename = str(int(s[0]))+".jpg"
+        # write labels
+        with open(output_dir+"/labels.csv", "a") as f:
+            # throttle, steerは100で割り-1から1の間に正規化する
+            f.write("{},{},{}\n".format(filename,throttle/100,steer/100))
+        # write image
+        pil_img = Image.fromarray(image)
+        pil_img.save(output_dir+"/"+filename)
+
+        #### augment data by flipping the image horizontally ####
+        filename = str(int(s[0]))+"_i.jpg"
+        steer *= -1
+        image = image[:,::-1,:]
         # write labels
         with open(output_dir+"/labels.csv", "a") as f:
             # throttle, steerは100で割り-1から1の間に正規化する

@@ -6,7 +6,7 @@ class NeuralNetwork(nn.Module):
     def __init__(self):
         super(NeuralNetwork, self).__init__()
         self.W = 160
-        self.H = 120
+        self.H = 60
         self.C = 3
         self.flatten = nn.Flatten()
         self.conv_relu_stack = nn.Sequential(
@@ -21,7 +21,7 @@ class NeuralNetwork(nn.Module):
             nn.Conv2d(in_channels=64, out_channels=64, kernel_size=3, stride=2, padding=1),
             nn.ReLU(),
             nn.Flatten(),
-            nn.Linear(1280, 30),
+            nn.Linear(640, 30),
             nn.ReLU(),
             nn.Linear(30, 2),
         )
@@ -48,11 +48,11 @@ if __name__=="__main__":
     # model summary
     print("model summary:")
     batch_size = 32
-    summary(model, (3,160,120), batch_size)
+    summary(model, (3,160,60), batch_size)
 
     # prediction example
     print("forward propagation example")
-    X = torch.rand(1, 3, 160, 120, device=device)
+    X = torch.rand(1, 3, 160, 60, device=device)
     y = model(X)
     y_numpy = y.to('cpu').detach().numpy().copy()
     print("input shape:{}".format(X.shape))
@@ -61,8 +61,8 @@ if __name__=="__main__":
     print("output:{}".format(y_numpy))
 
     # save model to file (convert to cpu before save)
-    #save_path = "model.pt"
-    #torch.save(model.to("cpu").state_dict(), save_path) 
+    save_path = "model.pt"
+    torch.save(model.to("cpu").state_dict(), save_path) 
 
     # load model from file (convert from cpu to appropriate device)
     #model = NeuralNetwork().to(device)
