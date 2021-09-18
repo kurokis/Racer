@@ -12,7 +12,7 @@ class NeuralNetwork(nn.Module):
     def __init__(self):
         super(NeuralNetwork, self).__init__()
         self.W = 160
-        self.H = 120
+        self.H = 60
         self.C = 3
         self.flatten = nn.Flatten()
         self.conv_relu_stack = nn.Sequential(
@@ -27,7 +27,7 @@ class NeuralNetwork(nn.Module):
             nn.Conv2d(in_channels=64, out_channels=64, kernel_size=3, stride=2, padding=1),
             nn.ReLU(),
             nn.Flatten(),
-            nn.Linear(1280, 30),
+            nn.Linear(640, 30),
             nn.ReLU(),
             nn.Linear(30, 2),
         )
