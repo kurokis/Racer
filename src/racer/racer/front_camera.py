@@ -29,8 +29,8 @@ class FrontCamera(Node):
         return True
 
     def gstreamer_pipeline(self,
-        capture_width=160, capture_height=60,
-        display_width=160, display_height=60,
+        capture_width=160, capture_height=90,
+        display_width=160, display_height=90,
         framerate=30, exposure_time_min= 1,exposure_time_max=30, # ms
         flip_method=0):
 
