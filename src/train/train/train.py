@@ -10,7 +10,8 @@ from lib.dataset import MyDataset
 
 def train_model(model, n_epochs):
     criterion = nn.MSELoss()
-    optimizer = optim.SGD(model.parameters(), lr=0.001, momentum=0.9)
+    #optimizer = optim.SGD(model.parameters(), lr=0.001, momentum=0.9)
+    optimizer = optim.Adam(model.parameters(), lr=0.001)
 
     parent_dir = os.path.dirname(os.path.abspath(__file__))
     dataset = MyDataset(parent_dir+"/input_data",parent_dir+"/input_data/labels.csv")
@@ -54,7 +55,7 @@ if __name__=="__main__":
     print('Using {} device'.format(device))
 
     # train the model
-    n_epochs = 10
+    n_epochs = 100
     model = NeuralNetwork().to(device)
     model = train_model(model, n_epochs)
 
