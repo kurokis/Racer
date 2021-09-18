@@ -60,6 +60,7 @@ class NeuralController(Node):
 
         # neural network
         device = 'cuda' if torch.cuda.is_available() else 'cpu'
+        self.device = device
         model = NeuralNetwork().to(device)
         pkg_dir = get_package_share_directory('racer')
         model_path = os.path.join(pkg_dir, "params/model.pt")
@@ -88,7 +89,7 @@ class NeuralController(Node):
         # convert image to numpy array to torch tensor
         msg = self.image_msg
         im = np.frombuffer(msg.data, dtype=np.uint8).reshape(msg.height, msg.width, -1)
-        x = torch.from_numpy(im.astype(np.float32)).clone()
+        x = torch.from_numpy(im.astype(np.float32)).clone().to(self.device)
 
         # (h, w, c) to (c, w, h)
         x = x.permute(2, 1, 0)
