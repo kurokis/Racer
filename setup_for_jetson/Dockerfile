@@ -75,4 +75,7 @@ RUN python3 -m pip install adafruit-circuitpython-servokit
 RUN apt-get update
 RUN apt-get install -y xterm
 
+# Install torchsummary
+RUN python3 -m pip install torchsummary
+
 WORKDIR /app

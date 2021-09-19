@@ -19,7 +19,3 @@ print(torch.max(torch.abs(y-y_trt)))
 # save trt alexnet
 torch.save(model_trt.state_dict(), 'alexnet_trt.pth')
 
-# reload the trt model from file
-model_trt_reload = TRTModule()
-model_trt_reload.load_state_dict(torch.load('alexnet_trt.pth'))
-print("Reload complete")
