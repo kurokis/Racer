@@ -1047,5 +1047,11 @@
       <uri>model://prius</uri>
       <pose>6 0.5 0 0 0 -1.57</pose>
     </include>
+    <!-- GUI起動時の視点 -->
+    <gui>
+        <camera name="user_camera">
+            <pose>11.937 0.29486 4.74469 0 0.666 2.756</pose>
+        </camera>
+    </gui>
   </world>
 </sdf>
