@@ -1,9 +1,8 @@
 import os
 import sys
 import torch
-from torch2trt import torch2trt
+from torch2trt import torch2trt, TRTModule
 from torchvision.models.alexnet import alexnet
-from torch2trt import TRTModule
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '../train/lib'))
 
@@ -20,7 +19,8 @@ if __name__=="__main__":
         model.load_state_dict(torch.load(model_path, map_location=torch.device(device)))
         model.eval()
     else:
-        print("Neural network model does not exist. Using initial values for model weights.")
+        print("Neural network model does not exist.")
+        raise Error
     
     model = model.eval().to(device)
 
@@ -36,6 +36,7 @@ if __name__=="__main__":
     print(torch.max(torch.abs(y-y_trt)))
 
     # save trt alexnet
+    os.makedirs(os.path.join(os.path.dirname(__file__), "output_data"), exist_ok=True)
     output_path = os.path.join(os.path.dirname(__file__), "output_data/model_trt.pt")
     torch.save(model_trt.state_dict(), output_path)
 
