@@ -8,7 +8,7 @@ from torchsummary import summary
 from lib.network import NeuralNetwork
 from lib.dataset import MyDataset
 
-def train_model(model, n_epochs):
+def train_model(model, n_epochs, device):
     criterion = nn.MSELoss()
     #optimizer = optim.SGD(model.parameters(), lr=0.001, momentum=0.9)
     optimizer = optim.Adam(model.parameters(), lr=0.001)
@@ -29,6 +29,7 @@ def train_model(model, n_epochs):
         for i, data in enumerate(trainloader, 0):
             # get the inputs; data is a list of [inputs, labels]
             inputs, labels = data
+            inputs, labels = inputs.to(device), labels.to(device)
 
             # zero the parameter gradients
             optimizer.zero_grad()
@@ -60,7 +61,7 @@ if __name__=="__main__":
     # train the model
     n_epochs = 100
     model = NeuralNetwork().to(device)
-    model = train_model(model, n_epochs)
+    model = train_model(model, n_epochs, device)
 
     # save the trained model
     parent_dir = os.path.dirname(os.path.abspath(__file__))

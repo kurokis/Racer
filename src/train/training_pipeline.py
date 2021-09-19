@@ -34,3 +34,15 @@ if __name__=="__main__":
         subprocess.run(["python3",parent_dir+"/train/train.py"])
     else:
         print("bag2labels.py failed")
+
+    # copy files from train/output_data to train/input_data
+    print("Copying files from {} to {}".format(parent_dir+"/train/output_data", parent_dir+"/tensorrt/input_data"))
+    shutil.copytree(parent_dir+"/train/output_data", parent_dir+"/tensorrt/input_data")
+    print("Copying files complete at {}".format(datetime.datetime.now()))
+
+    # run conver_to_trt.py
+    if result.returncode==0:
+        print("Running tensorrt/convert_to_trt.py {}".format(datetime.datetime.now()))
+        subprocess.run(["python3",parent_dir+"/tensorrt/convert_to_trt.py"])
+    else:
+        print("convert_to_trt.py failed")
