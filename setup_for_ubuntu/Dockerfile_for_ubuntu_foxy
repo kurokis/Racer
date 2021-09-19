@@ -26,4 +26,12 @@ RUN python3 -m pip install numpy matplotlib scipy jupyterlab pandas pillow
 RUN python3 -m pip install torch torchvision torchaudio torchsummary
 RUN python3 -m pip install bokeh
 
+RUN apt-get update && apt-get install -y mesa-utils
+
+# nvidia-container-runtime
+ENV NVIDIA_VISIBLE_DEVICES \
+    ${NVIDIA_VISIBLE_DEVICES:-all}
+ENV NVIDIA_DRIVER_CAPABILITIES \
+    ${NVIDIA_DRIVER_CAPABILITIES:+$NVIDIA_DRIVER_CAPABILITIES,}graphics
+
 WORKDIR /app
