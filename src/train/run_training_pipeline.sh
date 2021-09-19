@@ -14,7 +14,7 @@ cd ../..
 # - ジョイスティック対応(--privileged, --device)
 # - イメージ名ubunturos(docker_build.shで指定済み)
 xhost +
-sudo docker run --name racer_train --rm --privileged \
+sudo docker run --gpus all --name racer_train --rm --privileged \
     --mount type=bind,source=$(pwd),target=/app \
     --shm-size=512m \
     --net=host \
@@ -22,4 +22,4 @@ sudo docker run --name racer_train --rm --privileged \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
     --device=/dev/input/js0:/dev/input/js0 \
     --device=/dev/snd:/dev/snd \
-    ubunturosgalactic python3 src/train/training_pipeline.py
+    hgpt2/ubuntu_galactic python3 src/train/training_pipeline.py
