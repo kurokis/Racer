@@ -38,7 +38,7 @@ class NeuralController(Node):
         self.device = device
         
         output_dim = 2
-        model = torchvision.models.resnet18(pretrained=True)
+        model = torchvision.models.resnet18(pretrained=False)
         model.fc = torch.nn.Linear(512, output_dim)
         model = model.to(device)
 
