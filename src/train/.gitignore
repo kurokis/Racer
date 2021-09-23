@@ -3,3 +3,5 @@ output_data/
 **/alexnet_trt.pth
 **/torch2trt
 **/torch2trt.egg-info
+**/sample_training_image.jpg
+**/prediction_image.jpg

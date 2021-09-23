@@ -7,36 +7,11 @@ from sensor_msgs.msg import Image
 import numpy as np
 import torch
 from torch import nn
+import torchvision
+import torchvision.transforms.functional as F
+from torchvision import transforms
 
-class NeuralNetwork(nn.Module):
-    def __init__(self):
-        super(NeuralNetwork, self).__init__()
-        self.W = 160
-        self.H = 60
-        self.C = 3
-        self.flatten = nn.Flatten()
-        self.conv_relu_stack = nn.Sequential(
-            nn.Conv2d(in_channels=3, out_channels=24, kernel_size=5, stride=2, padding=1),
-            nn.ReLU(),
-            nn.Conv2d(in_channels=24, out_channels=32, kernel_size=5, stride=2, padding=1),
-            nn.ReLU(),
-            nn.Conv2d(in_channels=32, out_channels=64, kernel_size=5, stride=2, padding=1),
-            nn.ReLU(),
-            nn.Conv2d(in_channels=64, out_channels=64, kernel_size=3, stride=2, padding=1),
-            nn.ReLU(),
-            nn.Conv2d(in_channels=64, out_channels=64, kernel_size=3, stride=2, padding=1),
-            nn.ReLU(),
-            nn.Flatten(),
-            nn.Linear(640, 30),
-            nn.ReLU(),
-            nn.Linear(30, 2),
-        )
-
-    def forward(self, x):
-        # input: tensor of dimensions (batch_size, channels, width, height)
-        # output: tensor of dimensions (batch_size, 2)
-        y_pred = self.conv_relu_stack(x)
-        return y_pred
+from PIL import Image as PILImage
 
 class NeuralController(Node):
     def __init__(self):
@@ -61,7 +36,12 @@ class NeuralController(Node):
         # neural network
         device = 'cuda' if torch.cuda.is_available() else 'cpu'
         self.device = device
-        model = NeuralNetwork().to(device)
+        
+        output_dim = 2
+        model = torchvision.models.resnet18(pretrained=True)
+        model.fc = torch.nn.Linear(512, output_dim)
+        model = model.to(device)
+
         pkg_dir = get_package_share_directory('racer')
         model_path = os.path.join(pkg_dir, "params/model.pt")
         if os.path.exists(model_path):
@@ -89,19 +69,36 @@ class NeuralController(Node):
         # convert image to numpy array to torch tensor
         msg = self.image_msg
         im = np.frombuffer(msg.data, dtype=np.uint8).reshape(msg.height, msg.width, -1)
-        x = torch.from_numpy(im.astype(np.float32)).clone().to(self.device)
+        x = torch.from_numpy(im.astype(np.float32)).clone().to(self.device) # tensor of shape (h, w, c) 
 
-        # crop the image: 320x180 => 160x90 => 160x60
-        x = x[::2,::2,:] # height,width,channel
-        x = x[15:75,:,:] # height,width,channel
+        # convert range to 0-1
+        x = x/255
 
-        # (h, w, c) to (c, w, h)
-        x = x.permute(2, 1, 0)
+        # (h, w, c) to (c, h, w)
+        x = x.permute(2, 0, 1)
 
-        # add batch dimension (h, w, c) to (1, h, w, c)
+        # add batch dimension (c, h, w) to (1, c, h, w)
         x = x.unsqueeze(0)
 
-        #self.get_logger().info(str(x.size()))
+        transform = transforms.Compose([
+            #transforms.ColorJitter(0.2, 0.2, 0.2, 0.2),
+            transforms.Resize((224, 224)), # for resnet
+            transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
+        ])
+        x = transform(x)
+
+        # for debug
+        # normalize: output[channel] = (input[channel] - mean[channel]) / std[channel]
+        # apply reverse operation to obtain image
+        #ch1 = x[0][0].to('cpu').detach().numpy().copy()
+        #ch2 = x[0][1].to('cpu').detach().numpy().copy()
+        #ch3 = x[0][2].to('cpu').detach().numpy().copy()
+        #tmp = (ch1+ch2+ch3)/3
+        #img_pil = PILImage.fromarray((((tmp*0.225)+0.5)*255).astype(np.uint8))
+        #img_pil.save('transformed.jpg')
+        #self.get_logger().info(str(ch1)) # 平均値や最大値が学習時から大きく乖離していないことを確認すること
+        #self.get_logger().info("type of x: {}".format(str(type(x))))
+        #self.get_logger().info("shape of x: {}".format(str(list(x.size()))))
 
         # forward propagation
         y = self.model(x)
