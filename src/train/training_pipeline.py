@@ -15,7 +15,7 @@ if __name__=="__main__":
 
     # run bag2labels.py
     print("Running bag2labels/bag2labels.py")
-    result = subprocess.run(["python3",parent_dir+"/bag2labels/bag2labels.py"], stdout=subprocess.PIPE)
+    result = subprocess.run(["bash",parent_dir+"/bag2labels/run_bag2labels.sh"], stdout=subprocess.PIPE)
     print("Running bag2labels.py complete at {}".format(datetime.datetime.now()))
 
     # clean up train/input_data
@@ -31,7 +31,7 @@ if __name__=="__main__":
     # run train.py
     if result.returncode==0:
         print("Running train/train.py {}".format(datetime.datetime.now()))
-        subprocess.run(["python3",parent_dir+"/train/train.py"])
+        subprocess.run(["bash",parent_dir+"/train/run_train_resnet.sh"])
     else:
         print("bag2labels.py failed")
 
@@ -43,6 +43,6 @@ if __name__=="__main__":
     # run conver_to_trt.py
     if result.returncode==0:
         print("Running tensorrt/convert_to_trt.py {}".format(datetime.datetime.now()))
-        subprocess.run(["python3",parent_dir+"/tensorrt/convert_to_trt.py"])
+        subprocess.run(["bash",parent_dir+"/tensorrt/docker_run.sh"])
     else:
         print("convert_to_trt.py failed")

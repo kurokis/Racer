@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 from PIL import Image
+import shutil
 
 class BagFileParser():
     def __init__(self, bag_file):
@@ -65,10 +66,13 @@ def sync_ts_and_images(t_ts, y_ts, t_im, y_im):
 
     dt = 0.5 # seconds
 
-    clip_before = 10 # seconds
-    clip_after = 10 # seconds
+    clip_before = 0 # seconds
+    clip_after = 0 # seconds
     t_start = max(t_ts[0], t_im[0]) + clip_before*10**9
-    t_end = min(t_ts[-1], t_im[-1]) - clip_before*10**9
+    t_end = min(t_ts[-1], t_im[-1]) - clip_after*10**9
+    print("start: {}".format(t_start/10**9))
+    print("end: {}".format(t_end/10**9))
+    print("duration: {}".format((t_end-t_start)/10**9))
     
     n = int((t_end-t_start)/10**9 / dt)
     n = max(n-1, 0) # subtract 1, but keep it non-negative
@@ -91,45 +95,51 @@ def sync_ts_and_images(t_ts, y_ts, t_im, y_im):
 
 if __name__ == "__main__":
     bag_files = glob.glob(os.path.dirname(os.path.abspath(__file__))+"/input_data/**/*.db3")
-    bag_file = bag_files[0]
-    print(bag_file)
-    parser = BagFileParser(bag_file)
+    #bag_file = bag_files[0]
 
-    print("Extracting throttle_steer")
-    t_ts, y_ts = get_ts_messages(parser)
-    print(t_ts)
-
-    print("Extracting images")
-    t_im, y_im = get_camera_messages(parser)
-
-    print("Synchronizing data")
-    synchronized = sync_ts_and_images(t_ts, y_ts, t_im, y_im)
-
-    print("Writing file")
+    # Clean output dir
     output_dir = os.path.dirname(os.path.abspath(__file__))+"/output_data"
+    if os.path.exists(output_dir):
+    	shutil.rmtree(output_dir)
     os.makedirs(output_dir, exist_ok=True)
-    for s in synchronized:
-        timestamp = s[0]
-        throttle = s[1][0]
-        steer = s[1][1]
-        image = s[2]
-        filename = str(int(s[0]))+".jpg"
-        # write labels
-        with open(output_dir+"/labels.csv", "a") as f:
-            # throttle, steerは100で割り-1から1の間に正規化する
-            f.write("{},{},{}\n".format(filename,throttle/100,steer/100))
-        # write image
-        pil_img = Image.fromarray(image)
-        pil_img.save(output_dir+"/"+filename)
 
-        #### augment data by flipping the image horizontally ####
-        filename = str(int(s[0]))+"_i.jpg"
-        steer *= -1
-        image = image[:,::-1,:]
-        # write labels
-        with open(output_dir+"/labels.csv", "a") as f:
-            # throttle, steerは100で割り-1から1の間に正規化する
-            f.write("{},{},{}\n".format(filename,throttle/100,steer/100))
-        # write image
-        pil_img = Image.fromarray(image)
-        pil_img.save(output_dir+"/"+filename)
+    for bag_file in bag_files:
+        print(bag_file)
+        parser = BagFileParser(bag_file)
+
+        print("Extracting throttle_steer")
+        t_ts, y_ts = get_ts_messages(parser)
+        print(t_ts)
+
+        print("Extracting images")
+        t_im, y_im = get_camera_messages(parser)
+
+        print("Synchronizing data")
+        synchronized = sync_ts_and_images(t_ts, y_ts, t_im, y_im)
+
+        print("Writing file")
+        for s in synchronized:
+            timestamp = s[0]
+            throttle = s[1][0]
+            steer = s[1][1]
+            image = s[2]
+            filename = str(int(s[0]))+".jpg"
+            # write labels
+            with open(output_dir+"/labels.csv", "a") as f:
+                # throttle, steerは100で割り-1から1の間に正規化する
+                f.write("{},{},{}\n".format(filename,throttle/100,steer/100))
+            # write image
+            pil_img = Image.fromarray(image)
+            pil_img.save(output_dir+"/"+filename)
+
+            #### augment data by flipping the image horizontally ####
+            filename = str(int(s[0]))+"_i.jpg"
+            steer *= -1
+            image = image[:,::-1,:]
+            # write labels
+            with open(output_dir+"/labels.csv", "a") as f:
+                # throttle, steerは100で割り-1から1の間に正規化する
+                f.write("{},{},{}\n".format(filename,throttle/100,steer/100))
+            # write image
+            pil_img = Image.fromarray(image)
+            pil_img.save(output_dir+"/"+filename)
