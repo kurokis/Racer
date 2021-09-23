@@ -48,9 +48,9 @@ def get_camera_messages(parser):
     images = []
     for message in im_messages:
         timestamp = message[0]
-        w,h,c = 160,90,3
+        w,h,c = 320,180,3 # rosで記録する解像度
         image = np.array(message[1].data).reshape(h,w,c)
-        image = image[15:75,:,:] # crop the image to 160x60x3
+        
         t.append(timestamp)
         images.append(image)
         #pil_img = Image.fromarray(image)
