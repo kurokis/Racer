@@ -1,7 +1,7 @@
 import glob
 from pathlib import Path
 import pandas as pd
-from PIL import Image
+from PIL import Image, ImageOps
 import torch
 from torchvision import transforms
 
@@ -14,6 +14,7 @@ class MyDataset(torch.utils.data.Dataset):
 
         img_paths = []
         labels = []
+        hflips = []
         for path in img_paths_:
             df_match = df[df["filename"]==str(Path(path).name)]
             if len(df_match)==0:
@@ -23,8 +24,19 @@ class MyDataset(torch.utils.data.Dataset):
             label = [throttle, steer]
             img_paths.append(path)
             labels.append(label)
+            hflips.append(0)
+            
+            # Horizontal flipping
+            enable_hflip = True
+            if enable_hflip:
+                label = [throttle, -1*steer]
+                img_paths.append(path)
+                labels.append(label)
+                hflips.append(1)
+
         self.img_paths = img_paths
         self.labels = labels
+        self.hflips = hflips
 
         # define transforms to be applied on the image
         transform = transforms.Compose([
@@ -40,7 +52,10 @@ class MyDataset(torch.utils.data.Dataset):
 
     def __getitem__(self, index):
         path = self.img_paths[index]
+        hflip = self.hflips[index]
         image_pil = Image.open(path)
+        if hflip==1:
+            image_pil = ImageOps.mirror(image_pil)
         image = self.transform(image_pil)
         label = torch.FloatTensor(self.labels[index])
         return image, label

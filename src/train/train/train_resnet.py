@@ -9,11 +9,12 @@ from torchsummary import summary
 from lib.dataset import MyDataset
 import numpy as np
 from PIL import Image as PILImage
+import copy
 
 def train_model(model, n_epochs, device):
     criterion = nn.MSELoss()
     #optimizer = optim.SGD(model.parameters(), lr=0.001, momentum=0.9)
-    optimizer = optim.Adam(model.parameters(), lr=0.001)
+    optimizer = optim.Adam(model.parameters(), lr=0.0005)
 
     parent_dir = os.path.dirname(os.path.abspath(__file__))
     dataset = MyDataset(parent_dir+"/input_data",parent_dir+"/input_data/labels.csv")
@@ -63,6 +64,13 @@ def train_model(model, n_epochs, device):
                 img_pil.save('sample_training_image.jpg')
                 #print(ch1)
 
+        # save the trained model on each epoch
+        parent_dir = os.path.dirname(os.path.abspath(__file__))
+        Path(parent_dir+"/output_data").mkdir(exist_ok=True)
+        save_path = parent_dir+"/output_data/model.pt"
+        torch.save(copy.deepcopy(model).to("cpu").state_dict(), save_path) 
+
+
     print('Training finished')
     return model
 
@@ -80,7 +88,7 @@ if __name__=="__main__":
 
     model.train()
 
-    n_epochs = 50
+    n_epochs = 100
     model = train_model(model, n_epochs, device)
 
     # save the trained model

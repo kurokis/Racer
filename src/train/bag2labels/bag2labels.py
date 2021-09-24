@@ -131,15 +131,3 @@ if __name__ == "__main__":
             # write image
             pil_img = Image.fromarray(image)
             pil_img.save(output_dir+"/"+filename)
-
-            #### augment data by flipping the image horizontally ####
-            filename = str(int(s[0]))+"_i.jpg"
-            steer *= -1
-            image = image[:,::-1,:]
-            # write labels
-            with open(output_dir+"/labels.csv", "a") as f:
-                # throttle, steerは100で割り-1から1の間に正規化する
-                f.write("{},{},{}\n".format(filename,throttle/100,steer/100))
-            # write image
-            pil_img = Image.fromarray(image)
-            pil_img.save(output_dir+"/"+filename)
