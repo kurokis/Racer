@@ -10,7 +10,7 @@ from torch import nn
 import torchvision
 import torchvision.transforms.functional as F
 from torchvision import transforms
-
+from torch2trt import TRTModule
 from PIL import Image as PILImage
 
 class NeuralController(Node):
@@ -27,7 +27,7 @@ class NeuralController(Node):
         # variables for listener
         self.image_msg = None
         
-        timer_period = 0.1 # seconds
+        timer_period = 0.01 # seconds
         self.timer = self.create_timer(timer_period, self.timer_callback)
         
         self.throttle = 0.0
@@ -37,15 +37,21 @@ class NeuralController(Node):
         device = 'cuda' if torch.cuda.is_available() else 'cpu'
         self.device = device
         
-        output_dim = 2
-        model = torchvision.models.resnet18(pretrained=False)
-        model.fc = torch.nn.Linear(512, output_dim)
-        model = model.to(device)
-
+        # If TensorRT model exists, use that model
         pkg_dir = get_package_share_directory('racer')
+        model_trt_path = os.path.join(pkg_dir, "params/model_trt.pt")
         model_path = os.path.join(pkg_dir, "params/model.pt")
-        if os.path.exists(model_path):
-            self.get_logger().info("Neural network model exists at {}. Loading weights from the model.".format(model_path))
+        if os.path.exists(model_trt_path):
+            self.get_logger().info("TensorRT model exists at {}".format(model_trt_path))
+            model_trt = TRTModule()
+            model_trt.load_state_dict(torch.load(model_trt_path))
+            model = model_trt
+        elif os.path.exists(model_path):
+            output_dim = 2
+            model = torchvision.models.resnet18(pretrained=False)
+            model.fc = torch.nn.Linear(512, output_dim)
+            model = model.to(device)
+            self.get_logger().info("Non-TensorRT model exists at {}. Loading weights from the model.".format(model_path))
             model.load_state_dict(torch.load(model_path, map_location=torch.device(device)))
             model.eval()
         else:
@@ -61,7 +67,7 @@ class NeuralController(Node):
         data = [int(100*self.throttle), int(100*self.steer)]
         msg = Int8MultiArray(data=data)
         self.pub.publish(msg)
-        self.get_logger().info("NN node output: {}".format(data))
+        #self.get_logger().info("NN node output: {}".format(data))
     
     def predict_neural(self):
         if self.image_msg is None:

@@ -17,6 +17,9 @@ class SimMotor(Node):
         data = msg.data
         throttle = data[0]
         steer = data[1]
+
+        throttle *= 1.2
+        steer *= 1.8
         
         msg = Twist()
         # linear.x: target speed in m/s
