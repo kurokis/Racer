@@ -2,17 +2,17 @@ import os
 import sys
 import torch
 from torch2trt import torch2trt, TRTModule
+import torchvision
 from torchvision.models.alexnet import alexnet
-
-sys.path.append(os.path.join(os.path.dirname(__file__), '../train/lib'))
-
-from network import NeuralNetwork
-
-#model = alexnet(pretrained=True).eval().to('cuda')
 
 if __name__=="__main__":
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
-    model = NeuralNetwork().to(device)
+    
+    output_dim = 2
+    model = torchvision.models.resnet18(pretrained=False)
+    model.fc = torch.nn.Linear(512, output_dim)
+    model = model.to(device)
+
     model_path = os.path.join(os.path.dirname(__file__), "input_data/model.pt")
     if os.path.exists(model_path):
         print("Neural network model exists at {}. Loading weights from the model.".format(model_path))
@@ -24,11 +24,11 @@ if __name__=="__main__":
     
     model = model.eval().to(device)
 
-    x = torch.ones((1,3,160,60)).to(device) # batch_size, channel, width, height
+    x = torch.ones((1,3,224,224)).to(device) # batch_size, channel, width, height
 
     # convert alexnet to TensorRT
     print("Converting model to TensorRT")
-    model_trt = torch2trt(model, [x])
+    model_trt = torch2trt(model, [x], fp16_mode=True)
 
     y = model(x)
     y_trt = model_trt(x)
