@@ -12,6 +12,7 @@ import torchvision.transforms.functional as F
 from torchvision import transforms
 from torch2trt import TRTModule
 from PIL import Image as PILImage
+import datetime
 
 class NeuralController(Node):
     def __init__(self):
@@ -83,15 +84,19 @@ class NeuralController(Node):
         # (h, w, c) to (c, h, w)
         x = x.permute(2, 0, 1)
 
-        # add batch dimension (c, h, w) to (1, c, h, w)
-        x = x.unsqueeze(0)
-
+        # normalize
         transform = transforms.Compose([
             #transforms.ColorJitter(0.2, 0.2, 0.2, 0.2),
-            transforms.Resize((224, 224)), # for resnet
+            #transforms.Resize((224, 224)), # do not use this because it only accepts PIL image
             transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
         ])
         x = transform(x)
+
+        # add batch dimension (c, h, w) to (1, c, h, w)
+        x = x.unsqueeze(0)
+
+        # resize image width and height to 224
+        x = nn.functional.interpolate(x, (224,224))
 
         # for debug
         # normalize: output[channel] = (input[channel] - mean[channel]) / std[channel]
@@ -113,7 +118,7 @@ class NeuralController(Node):
         y = y.squeeze()
         y_numpy = y.to('cpu').detach().numpy().copy()
 
-        self.get_logger().info("Raw model output: {}".format(y_numpy))
+        self.get_logger().info("Raw model output: {}\t{}".format(y_numpy,datetime.datetime.now()))
         throttle = y_numpy[0]
         throttle = float(min(1, max(0, throttle)))
         steer = y_numpy[1]
