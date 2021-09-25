@@ -78,4 +78,7 @@ RUN apt-get install -y xterm
 # Install torchsummary
 RUN python3 -m pip install torchsummary
 
+# Install rosbag2
+RUN apt-get update && apt-get install -y ros-eloquent-ros2bag ros-eloquent-rosbag2-transport
+
 WORKDIR /app
