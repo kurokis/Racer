@@ -80,17 +80,76 @@ exit
 
 ## How-to: Ubuntu上でシミュレータを起動する
 
-setup_for_windowsフォルダに[ros:foxy](https://hub.docker.com/_/ros)をベースにしたDockerfileを置いている。これを使うとUbuntuで簡単にROS2実行環境が構築できる。このコンテナを実行するとROS2、Gazebo、python、pip、pythonライブラリ(pygame等)がインストールされた状態でスタートする。
+1. Dockerをインストールする
 
-1. Dockerをインストールする([snapコマンド](https://snapcraft.io/install/docker/ubuntu)を使う。```sudo snap install docker```)
+[snapコマンド](https://snapcraft.io/install/docker/ubuntu)を使う。
 
-1. Racerディレクトリに移動 ```cd Racer```
+```bash
+sudo snap install docker
+```
 
-1. docker_build.shを実行(初回は5GB程度のファイルをダウンロードするため時間がかかる) ```bash setup_for_ubuntu/docker_build_foxy.sh```
+2. cuda-driversを使ってNVIDIA driverをインストールする
 
-1. docker_run.shを実行 ```bash setup_for_ubuntu/docker_run_foxy.sh```
+[CUDA Toolkit](https://developer.nvidia.com/cuda-toolkit)のWebサイトで自身の開発環境に合わせてLinux>x86_64>ubuntu>20.04などと選択していくと自身の環境に合わせたインストール指示が出る。最後のsudo apt-get -y install cuda をsudo apt-get -y install cuda-driversに変えると、適切なcuda-driversがインストールされる。以下は一例。
 
-1. docker環境内でsim_run.shを実行```bash sim_run.sh```
+```bash
+wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
+sudo mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600
+sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/7fa2af80.pub
+sudo add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/ /"
+sudo apt-get update
+sudo apt-get -y install cuda-drivers
+```
+
+再起動し、ターミナルで```nvidia-smi```を実行。以下のような画面が表示されれば成功。
+
+![](docs/nvidia-smi.png)
+
+3. NVIDIA Container Toolkitインストールする
+
+NVIDIA Container Toolkitの[Installation Guide](https://github.com/NVIDIA/nvidia-docker/tree/master#quickstart)にしたがってインストールする。
+
+```bash
+sudo apt install curl
+distribution=$(. /etc/os-release;echo $ID$VERSION_ID) \
+   && curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add - \
+   && curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+sudo apt-get update
+sudo apt-get install -y nvidia-docker2
+sudo systemctl restart docker
+sudo docker run --rm --gpus all nvidia/cuda:11.0-base nvidia-smi
+```
+
+dockerコンテナ内でnvidia-smiの出力が表示されれば成功。
+
+![](docs/nvidia-smi_docker.png)
+
+
+3. Racerをクローンし、プロジェクトのルートディレクトリに移動 
+
+```bash
+cd ~
+git clone https://github.com/kurokis/Racer
+cd Racer
+```
+
+4. docker_build_foxy.shを実行(初回は5GB程度のファイルをダウンロードするため時間がかかる) 
+
+```bash
+setup_for_ubuntu/docker_build_foxy.sh
+```
+
+5. docker_run.shを実行
+
+```bash
+setup_for_ubuntu/docker_run_foxy.sh
+```
+
+6. docker環境内でsim_run.shを実行
+
+```bash
+bash sim_run.sh
+```
 
 ## How-to: 走行データからモデルを学習させる
 
@@ -114,7 +173,6 @@ bash run_training_pipeline.sh
 
 5. 学習済みモデルをsrcracer/params/にコピーする
 
-
 ## パッケージ構成
 
 ```
@@ -122,7 +180,9 @@ src/
   racer/
     launch/ launchファイルの格納場所
       racer.launch.py 実機モードのlaunchファイル
+      racer_record.launch.py 実機モードのlaunchファイル
       sim_racer.launch.py シミュレータモードのlaunchファイル
+      sim_racer_record.launch.py シミュレータモードのlaunchファイル
     models/ 車両モデル（SDF、メッシュ）
     racer/ コード本体
     resource/ 略
