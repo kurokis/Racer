@@ -28,7 +28,7 @@ def generate_launch_description():
     config = os.path.join(
         get_package_share_directory('racer'),
         'config',
-        'config.yaml'
+        'config_autodriving.yaml'
     )
     #use_sim_time = LaunchConfiguration('use_sim_time', default='True')
     #world_file_name = 'walls2.world'

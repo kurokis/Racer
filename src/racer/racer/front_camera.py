@@ -9,13 +9,21 @@ import numpy as np
 class FrontCamera(Node):
     def __init__(self):
         super().__init__('front_camera')
+        self.declare_parameters(
+            namespace='',
+            parameters=[
+                ('output_period', 0.1)
+                ('height',320)
+                ('width',180)
+            ])
+
         self.publisher_ = self.create_publisher(Image, 'front_camera_image', 10)
         #self.publisher_ = self.create_publisher(Image, 'cam/camera/image_raw', 10)
-        timer_period = 0.03 # seconds
+        timer_period =self.get_parameter("output_period").value # seconds
         self.i = 0
         self.im_list = []
         self.bridge = CvBridge()
-        self.cap = cv2.VideoCapture(self.gstreamer_pipeline(flip_method=0), cv2.CAP_GSTREAMER)
+        self.cap = cv2.VideoCapture(self.gstreamer_pipeline(flip_method=0), display_width= self.get_parameter("width").value, display_height=self.get_parameter("height").value ,cv2.CAP_GSTREAMER)
         self.cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
         self.timer = self.create_timer(timer_period, self.timer_callback)
 
@@ -46,7 +54,7 @@ class FrontCamera(Node):
             'timeout=0 '                               # 0 - 2147483647
             'blocksize=-1 '                            # block size in bytes
             'num-buffers=-1 '                          # -1..2147483647 (-1=ulimited) num buf before sending EOS
-            'sensor-mode=-1 '                          # -1..255, IX279 0(3264x2464,21fps),1 (3264x1848,28),2(1080p.30),3(720p,60),4(=720p,120)
+            'sensor-mode=-4 '                          # -1..255, IX279 0(3264x2464,21fps),1 (3264x1848,28),2(1080p.30),3(720p,60),4(=720p,120)
             'tnr-strength=-1 '                         # -1..1
             'tnr-mode=1 '                              # 0,1,2
     #        'ee-mode=0'                               # 0,1,2
