@@ -10,9 +10,10 @@ from torch import nn
 import torchvision
 import torchvision.transforms.functional as F
 from torchvision import transforms
-from torch2trt import TRTModule
+from torch2trt import torch2trt, TRTModule
 from PIL import Image as PILImage
 import datetime
+import platform
 
 class NeuralController(Node):
     def __init__(self):
@@ -28,7 +29,7 @@ class NeuralController(Node):
         # variables for listener
         self.image_msg = None
         
-        timer_period = 0.01 # seconds
+        timer_period = 0.03 # seconds
         self.timer = self.create_timer(timer_period, self.timer_callback)
         
         self.throttle = 0.0
@@ -41,13 +42,23 @@ class NeuralController(Node):
         # If TensorRT model exists, use that model
         pkg_dir = get_package_share_directory('racer')
         model_trt_path = os.path.join(pkg_dir, "params/model_trt.pt")
+        model_trt_for_pc_path = os.path.join(pkg_dir, "params/model_trt_for_pc.pt")
         model_path = os.path.join(pkg_dir, "params/model.pt")
-        if os.path.exists(model_trt_path):
+
+        if "tegra-aarch64" not in str(platform.platform()):
+            # Jetsonでない場合は、都度model.ptからTensorRTで変換する
+            # TensorRTバージョンが少しでも異なるとmodel_trt.ptの互換性がなくなるため
+            model_trt = TRTModule()
+            model_trt.load_state_dict(torch.load(model_trt_for_pc_path))
+            model = model_trt
+        elif os.path.exists(model_trt_path):
+            # Jetsonの場合は、変換済みモデルを直接読み込む
             self.get_logger().info("TensorRT model exists at {}".format(model_trt_path))
             model_trt = TRTModule()
             model_trt.load_state_dict(torch.load(model_trt_path))
             model = model_trt
         elif os.path.exists(model_path):
+            # 変換済みモデルが存在しない場合は、変換前のモデルを読み込む
             output_dim = 2
             model = torchvision.models.resnet18(pretrained=False)
             model.fc = torch.nn.Linear(512, output_dim)

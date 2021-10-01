@@ -1,6 +1,8 @@
 # Racer
 
-自動運転ミニカー
+自動運転ミニカープロジェクト: Home Guardian PT 2
+
+![](docs/demo.gif)
 
 ## How-to: Jetson Nanoでracerを実行する
 
@@ -133,22 +135,38 @@ git clone https://github.com/kurokis/Racer
 cd Racer
 ```
 
-4. docker_build_foxy.shを実行(初回は5GB程度のファイルをダウンロードするため時間がかかる) 
+4. Docker HubからUbuntu上でRacerを実行するためのイメージをダウンロードする
 
 ```bash
-setup_for_ubuntu/docker_build_foxy.sh
+docker pull hgpt2/ubuntu_all
 ```
+
+※もしこのイメージで上手く動かない場合は、[How-to: 自分でdockerイメージをビルドする](#how-to:-自分でdockerイメージをビルドする)に従いイメージをビルドする
 
 5. docker_run.shを実行
 
 ```bash
-setup_for_ubuntu/docker_run_foxy.sh
+setup_for_ubuntu/docker_run_all.sh
 ```
 
 6. docker環境内でsim_run.shを実行
 
 ```bash
 bash sim_run.sh
+```
+
+## How-to: 自分でdockerイメージをビルドする
+
+4. docker_build_foxy.shを実行(初回は5GB程度のファイルをダウンロードするため時間がかかる) 
+
+```bash
+setup_for_ubuntu/docker_build_all.sh
+```
+
+5. docker_run.shを実行
+
+```bash
+setup_for_ubuntu/docker_run_all.sh
 ```
 
 ## How-to: 走行データからモデルを学習させる
@@ -173,7 +191,7 @@ bash run_training_pipeline.sh
 
 5. 学習済みモデルをsrcracer/params/にコピーする
 
-## パッケージ構成
+## Reference: パッケージ構成
 
 ```
 src/
@@ -204,7 +222,7 @@ run.sh 実機モードでのビルドからlaunchまでを一括で実行
 sim_run.sh シミュレータモードでのビルドからlaunchまでを一括で実行
 ```
 
-## ソフト構成
+## Reference: ソフト構成
 
 ![](docs/rqt_graph.png)
 
@@ -230,6 +248,15 @@ Topics:
 * throttle_steer: std_msgs/Int8MultiArray 調停後のスロットル/ステアコマンド(+-100の整数)
 * /demo/cmd_demo: geometry_msgs/Twist 速度/角速度コマンド
 * /cam/camera/image_raw: sensor_msgs/Image ROS画像
+
+## Reference: dockerfile比較
+
+|for|file|OS|ROS2|CUDA|cuDNN|TensorRT|Base Image|
+|---|----|--|----|----|-----|--------|----------|
+|desktop|setup_for_ubuntu/Dockerfile_all|Ubuntu 20.04|foxy|11.3.1|8.2.1|7.2.3.4|[nvcr.io/nvidia/tensorrt:21.06-py3](https://docs.nvidia.com/deeplearning/tensorrt/container-release-notes/rel_21-06.html#rel_21-06)|
+|desktop|setup_for_ubuntu/Dockerfile_for_ubuntu_foxy|Ubuntu 20.04|foxy|none|none|none|ros:foxy|
+|desktop|src/train/bag2labels/Dockerfile_for_ubuntu_galactic|Ubuntu 20.04|galactic|none|none|none|ros:galactic|
+|jetson (w/ JetPack 4.5.1)|setup_for_jetson/Dockerfile|Ubuntu 18.04|eloquent|10.2|8.0|7.1.3|[nvidiajetson/l4t-ros2-eloquent-pytorch:r32.5](https://developer.nvidia.com/blog/accelerating-ai-modules-for-ros-and-ros-2-on-jetson/)|
 
 
 ## サンプル画像
