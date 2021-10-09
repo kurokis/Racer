@@ -12,9 +12,9 @@ class FrontCamera(Node):
         self.declare_parameters(
             namespace='',
             parameters=[
-                ('output_period', 0.1)
-                ('height',320)
-                ('width',180)
+                ('output_period', 0.1),
+                ('height',320),
+                ('width',180),
             ])
 
         self.publisher_ = self.create_publisher(Image, 'front_camera_image', 10)
@@ -23,7 +23,8 @@ class FrontCamera(Node):
         self.i = 0
         self.im_list = []
         self.bridge = CvBridge()
-        self.cap = cv2.VideoCapture(self.gstreamer_pipeline(flip_method=0), display_width= self.get_parameter("width").value, display_height=self.get_parameter("height").value ,cv2.CAP_GSTREAMER)
+        #self.cap = cv2.VideoCapture(self.gstreamer_pipeline(flip_method=0), cv2.CAP_GSTREAMER, display_width= self.get_parameter("width").value, display_height=self.get_parameter("height").value)
+        self.cap = cv2.VideoCapture(self.gstreamer_pipeline(flip_method=0), cv2.CAP_GSTREAMER)
         self.cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
         self.timer = self.create_timer(timer_period, self.timer_callback)
 
