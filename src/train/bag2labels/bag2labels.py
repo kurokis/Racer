@@ -50,6 +50,7 @@ def get_camera_messages(parser):
     for message in im_messages:
         timestamp = message[0]
         w,h,c = 320,180,3 # rosで記録する解像度
+        #w,h,c = 180,320,3 # 実機のrosbag画像がなぜか縦横逆になっている
         image = np.array(message[1].data).reshape(h,w,c)
         
         t.append(timestamp)
@@ -81,7 +82,7 @@ def sync_ts_and_images(t_ts, y_ts, t_im, y_im):
     for i in range(n):
         # 時刻がt以上となる最初の位置を計算
         i_ts = np.where(t_ts >= t)[0][0]
-        i_im = np.where(t_ts >= t)[0][0]
+        i_im = np.where(t_im >= t)[0][0]
 
         # その時刻のthrottle_steerとimageをセットとみなす
         ts = y_ts[i_ts]
