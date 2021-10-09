@@ -25,6 +25,11 @@ def generate_launch_description():
 
     new_ros_version = is_new_ros_version()
 
+    config = os.path.join(
+        get_package_share_directory('racer'),
+        'config',
+        'config_autodriving.yaml'
+    )
     #use_sim_time = LaunchConfiguration('use_sim_time', default='True')
     #world_file_name = 'walls2.world'
     #pkg_dir = get_package_share_directory('racer')
