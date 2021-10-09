@@ -17,7 +17,7 @@ def train_model(model, n_epochs, device):
     optimizer = optim.Adam(model.parameters(), lr=0.0005)
 
     parent_dir = os.path.dirname(os.path.abspath(__file__))
-    dataset = MyDataset(parent_dir+"/input_data",parent_dir+"/input_data/labels.csv")
+    dataset = MyDataset(parent_dir+"/input_data")
     n_samples = len(dataset) 
     train_size = int(len(dataset) * 0.8)
     val_size = n_samples - train_size
