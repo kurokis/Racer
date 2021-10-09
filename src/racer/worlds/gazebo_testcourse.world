@@ -3,12 +3,17 @@
 <sdf version="1.5">
   <world name="default">
   
+    <scene>
+      <ambient>0.9 0.9 0.9 1</ambient>
+      <background>0.95 0.95 0.9 1</background>
+    </scene>
+
     <include>
       <uri>model://sun</uri>
     </include>
 
     <include>
-      <uri>model://ground_plane</uri>
+      <uri>model://racer_ground</uri>
     </include>
 
     <!-- Left Outside straight -->
@@ -753,7 +758,7 @@
     <!-- Left Bottom Inside curve -->
     <include>
       <name>lb_in_curve_1</name>
-      <uri>model://3cans</uri>
+      <uri>model://3cans_shortcut</uri>
       <pose> 1.5000 2.4340 0 0 0 -1.3963 </pose>
       <static>true</static>
     </include>
@@ -917,8 +922,8 @@
     </include>
     <include>
       <name>r_in_curve_20</name>
-      <uri>model://3cans</uri>
-      <pose> 6.3458 3.9626 0 0 0 2.9920 </pose>
+      <uri>model://3cans_shortcut</uri>
+      <pose> 6.1500 3.9921 0 0 0 6.1335 </pose>
       <static>true</static>
     </include>
 

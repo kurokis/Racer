@@ -1,0 +1,19 @@
+material Ground/CourseGround
+{
+  technique
+  {
+    pass
+    {
+      emissive 1.0 1.0 1.0 1.0
+
+      texture_unit
+      {
+        // Relative to the location of the material script
+        texture ../textures/course_ground.jpg
+
+        // Repeat the texture over the surface
+        scale 0.02 0.02
+      }
+    }
+  }
+}

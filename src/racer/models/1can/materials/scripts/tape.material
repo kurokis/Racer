@@ -1,0 +1,15 @@
+material 1can/Tape
+{
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture ../textures/white_tape.jpg
+        scale 1 1
+        filtering trilinear
+      }
+    }
+  }
+}
