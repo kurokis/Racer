@@ -3,216 +3,27 @@
 <sdf version="1.5">
 <model name="3cans">
   <pose>0 0 0 0 0 0</pose>
-    <!--
-    <link name="link">
-      <inertial>
-        <mass>1.0</mass>
-        <inertia>
-          <ixx>0.083</ixx>
-          <ixy>0.0</ixy>
-          <ixz>0.0</ixz>
-          <iyy>0.083</iyy>
-          <iyz>0.0</iyz>
-          <izz>0.083</izz>
-        </inertia>
-      </inertial>
-      <collision name="collision">
-        <geometry>
-          <box>
-            <size>1 1 1</size>
-          </box>
-        </geometry>
-      </collision>
-      <visual name="visual">
-        <geometry>
-          <box>
-            <size>1 1 1</size>
-          </box>
-        </geometry>
-      </visual>
-    </link>
-    -->
 
-     <link name="1st_can_upper">
-        <pose>0.033 0 0.0915 0 0 0</pose>
+      <include>
+        <name>1st_can</name>
+        <uri>model://1can</uri>
+        <pose>0.0 0 0 0 0 0</pose>
+        <static>true</static>
+      </include>
 
-        <!--
-        <inertial>
-        <mass>0.015</mass>
-        <inertia>
-          <ixx>0.083</ixx>
-          <ixy>0.0</ixy>
-          <ixz>0.0</ixz>
-          <iyy>0.083</iyy>
-          <iyz>0.0</iyz>
-          <izz>0.083</izz>
-        </inertia>
-      </inertial>
-      -->
+      <include>
+        <name>2nd_can</name>
+        <uri>model://1can</uri>
+        <pose>0.066 0 0 0 0 0</pose>
+        <static>true</static>
+      </include>
 
-        <collision name="collision">
-          <geometry>
-            <cylinder>
-              <radius>0.033</radius>
-              <length>0.061</length>
-            </cylinder>
-          </geometry>
-        </collision>
-
-        <visual name="visual">
-          <geometry>
-            <cylinder>
-              <radius>0.033</radius>
-              <length>0.061</length>
-            </cylinder>
-          </geometry>
-        </visual>
-
-      </link>
-      <link name="1st_can_lower">
-        <pose>0.033 0 0.0305 0 0 0</pose>
-
-        <!--
-        <inertial>
-        <mass>0.015</mass>
-        <inertia>
-          <ixx>0.083</ixx>
-          <ixy>0.0</ixy>
-          <ixz>0.0</ixz>
-          <iyy>0.083</iyy>
-          <iyz>0.0</iyz>
-          <izz>0.083</izz>
-        </inertia>
-      </inertial>
-      -->
-
-        <collision name="collision">
-          <geometry>
-            <cylinder>
-              <radius>0.033</radius>
-              <length>0.122</length>
-            </cylinder>
-          </geometry>
-        </collision>
-
-        <visual name="visual">
-          <geometry>
-            <cylinder>
-              <radius>0.033</radius>
-              <length>0.061</length>
-            </cylinder>
-          </geometry>
-          <material>
-            <ambient>0 0 0 1</ambient>
-            <diffuse>0 0 0 1</diffuse>
-            <specular>0 0 0 0</specular>
-            <emissive>1 1 1 1</emissive>
-          </material>
-        </visual>
-
-      </link>
-
-      <link name="2nd_can_upper">
-        <pose>0.099 0 0.0915 0 0 0</pose>
-
-        <collision name="collision">
-          <geometry>
-            <cylinder>
-              <radius>0.033</radius>
-              <length>0.061</length>
-            </cylinder>
-          </geometry>
-        </collision>
-
-        <visual name="visual">
-          <geometry>
-            <cylinder>
-              <radius>0.033</radius>
-              <length>0.061</length>
-            </cylinder>
-          </geometry>
-        </visual>
-        
-      </link>
-      <link name="2nd_can_lower">
-        <pose>0.099 0 0.0305 0 0 0</pose>
-
-        <collision name="collision">
-          <geometry>
-            <cylinder>
-              <radius>0.033</radius>
-              <length>0.061</length>
-            </cylinder>
-          </geometry>
-        </collision>
-
-        <visual name="visual">
-          <geometry>
-            <cylinder>
-              <radius>0.033</radius>
-              <length>0.061</length>
-            </cylinder>
-          </geometry>
-          <material>
-            <ambient>0 0 0 1</ambient>
-            <diffuse>0 0 0 1</diffuse>
-            <specular>0 0 0 0</specular>
-            <emissive>1 1 1 1</emissive>
-          </material>
-        </visual>
-        
-      </link>
-
-      <link name="3rd_can_upper">
-        <pose>0.165 0 0.0915 0 0 0</pose>
-
-        <collision name="collision">
-          <geometry>
-            <cylinder>
-              <radius>0.033</radius>
-              <length>0.061</length>
-            </cylinder>
-          </geometry>
-        </collision>
-
-        <visual name="visual">
-          <geometry>
-            <cylinder>
-              <radius>0.033</radius>
-              <length>0.061</length>
-            </cylinder>
-          </geometry>
-        </visual>
-        
-      </link>
-      <link name="3rd_can_lower">
-        <pose>0.165 0 0.0305 0 0 0</pose>
-
-        <collision name="collision">
-          <geometry>
-            <cylinder>
-              <radius>0.033</radius>
-              <length>0.061</length>
-            </cylinder>
-          </geometry>
-        </collision>
-
-        <visual name="visual">
-          <geometry>
-            <cylinder>
-              <radius>0.033</radius>
-              <length>0.061</length>
-            </cylinder>
-          </geometry>
-          <material>
-            <ambient>0 0 0 1</ambient>
-            <diffuse>0 0 0 1</diffuse>
-            <specular>0 0 0 0</specular>
-            <emissive>1 1 1 1</emissive>
-          </material>
-        </visual>
-        
-      </link>
+      <include>
+        <name>3rd_can</name>
+        <uri>model://1can</uri>
+        <pose>0.132 0 0 0 0 0</pose>
+        <static>true</static>
+      </include>
 
   </model>
 </sdf>

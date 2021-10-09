@@ -1,0 +1,29 @@
+<?xml version='1.0'?>
+
+<sdf version="1.5">
+<model name="3cans_shortcut">
+  <pose>0 0 0 0 0 0</pose>
+
+      <include>
+        <name>1st_can</name>
+        <uri>model://yellow_can</uri>
+        <pose>0.0 0 0 0 0 0</pose>
+        <static>true</static>
+      </include>
+
+      <include>
+        <name>2nd_can</name>
+        <uri>model://1can</uri>
+        <pose>0.066 0 0 0 0 0</pose>
+        <static>true</static>
+      </include>
+
+      <include>
+        <name>3rd_can</name>
+        <uri>model://1can</uri>
+        <pose>0.132 0 0 0 0 0</pose>
+        <static>true</static>
+      </include>
+
+  </model>
+</sdf>
