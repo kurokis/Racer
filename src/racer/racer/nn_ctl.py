@@ -130,9 +130,13 @@ class NeuralController(Node):
         y_numpy = y.to('cpu').detach().numpy().copy()
 
         self.get_logger().info("Raw model output: {}\t{}".format(y_numpy,datetime.datetime.now()))
-        throttle = y_numpy[0]
+
+        throttle_gain = 1.0
+        steering_gain = 1.8
+
+        throttle = y_numpy[0]*throttle_gain
         throttle = float(min(1, max(0, throttle)))
-        steer = y_numpy[1]
+        steer = y_numpy[1]*steering_gain
         steer = float(min(1, max(-1, steer)))
         
         self.throttle = throttle
