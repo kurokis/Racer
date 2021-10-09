@@ -25,6 +25,11 @@ def generate_launch_description():
 
     new_ros_version = is_new_ros_version()
 
+    config = os.path.join(
+        get_package_share_directory('racer'),
+        'config',
+        'config_data_collection.yaml'
+    )
     #use_sim_time = LaunchConfiguration('use_sim_time', default='True')
     #world_file_name = 'walls2.world'
     #pkg_dir = get_package_share_directory('racer')
@@ -113,18 +118,18 @@ def generate_launch_description():
             node_executable='joy_ctl',
         )
 
-    if new_ros_version:
-        nn_ctl_node = Node(
-            package='racer',
-            executable='nn_ctl',
-            output='screen',  # print logger info
-        )
-    else:
-        nn_ctl_node = Node(
-            package='racer',
-            node_executable='nn_ctl',
-            output='screen',  # print logger info
-        )
+    # if new_ros_version:
+    #     nn_ctl_node = Node(
+    #         package='racer',
+    #         executable='nn_ctl',
+    #         output='screen',  # print logger info
+    #     )
+    # else:
+    #     nn_ctl_node = Node(
+    #         package='racer',
+    #         node_executable='nn_ctl',
+    #         output='screen',  # print logger info
+    #     )
 
     if new_ros_version:
         priority_node = Node(
@@ -181,7 +186,7 @@ def generate_launch_description():
     ld.add_action(key_ctl_node)
     ld.add_action(joystick_node)
     ld.add_action(joy_ctl_node)
-    ld.add_action(nn_ctl_node)
+    # ld.add_action(nn_ctl_node)
     ld.add_action(priority_node)
     ld.add_action(r_motor_node)
     ld.add_action(front_camera_node)
